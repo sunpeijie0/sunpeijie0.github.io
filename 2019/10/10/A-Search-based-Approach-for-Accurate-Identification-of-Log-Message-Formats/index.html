@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="null">
+    <title>A Search-based Approach for Accurate Identification of Log Message Formats | 二十八度冬</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="ICPC 2018 日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足">
+<meta name="keywords" content="Paper Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Search-based Approach for Accurate Identification of Log Message Formats">
+<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;10&#x2F;A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats&#x2F;index.html">
+<meta property="og:site_name" content="二十八度冬">
+<meta property="og:description" content="ICPC 2018 日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;template.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;InitialPopulation.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;ParetoOptimal.png">
+<meta property="og:updated_time" content="2019-11-12T12:00:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;template.png">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "",
+  "url": "https://sunpeijie0.github.io"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>二十八度冬</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header"></a>
+                    
+                        <div class="meta">
+                            Programer / Shutterbug
+                        </div>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        <div class="item">
+                            <i class="marker icon" style="float: left"></i>
+                            <div class="content">Beijing</div>
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+
+                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    A Search-based Approach for Accurate Identification of Log Message Formats
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <blockquote>
+<p>ICPC 2018</p>
+<p>日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足够多的日志，又包含足够少的可变 tokens。</p>
+</blockquote>
+<h2 id="形式化问题"><a href="#形式化问题" class="headerlink" title="形式化问题"></a>形式化问题</h2><blockquote>
+<p>日志模板提取问题是多目标优化问题，设计到两个目标函数。</p>
+</blockquote>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><script type="math/tex; mode=display">
+Freq(X) = \sum_{i=1}^{n}{\frac{|match(\tau_i,M)|}{n\times|M|}}</script><blockquote>
+<p>$match(\tau,M)$  代表日志集合 $M$ 中匹配模板 $\tau$ 的那部分日志集合。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+Spec(X) = \sum_{i=1}^{n}{\frac{fixed(\tau_i)}{n\times tok(\tau_i)}}</script><blockquote>
+<p>$fix(\tau)$ 代表模板 $\tau$ 中固定 tokens 数目，$token(\tau)$ 代表模板 $\tau$ 中，tokens 总数。</p>
+</blockquote>
+<h3 id="对方案的约束"><a href="#对方案的约束" class="headerlink" title="对方案的约束"></a>对方案的约束</h3><blockquote>
+<p>帕累托最优并不一定成功匹配所有的日志。</p>
+<p>在方案 $X$ 中，两个不同的模板 $\tau_1$ 和 $\tau_2$ 可能匹配同一个日志。</p>
+<p>因此，需要对方案就行约束：</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\cup_{i=1}^{n}match(\tau_i,M) = M</script><script type="math/tex; mode=display">
+match(\tau_i,M)\cap match(\tau_j,M) = \phi\ for\ all\ \tau_i,\ \tau_j \in X,\ \tau_i\neq\tau_j</script><h2 id="MoLFI"><a href="#MoLFI" class="headerlink" title="MoLFI"></a>MoLFI</h2><h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><blockquote>
+<p>去掉重复的日志，替换某些可变部分为正则表达式 $#spec#$，剩下的可变部分用 $*$ 代替。</p>
+</blockquote>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><blockquote>
+<p>染色体 $C$ 是一个组的集合 $C = {G1,…,G_{max}}$，其中 $G_L = {\tau_1,…,\tau_k}$ 是 tokens 数目为 L 的模板集合。该编码避免了将每个模板与每个日志相比较，尽管它们有不同的 tokens 长度，提高了效率。</p>
+</blockquote>
+<p><img src="/.io//template.png" alt="template"></p>
+<h3 id="初始化种群"><a href="#初始化种群" class="headerlink" title="初始化种群"></a>初始化种群</h3><blockquote>
+<p>种群是一组方案的集合，种群 $P$ 里有 $N$ 条染色体 $C$，对应着 $N$ 个解决方案（$N$ 套模板）。</p>
+</blockquote>
+<p><img src="/.io//InitialPopulation.png" alt="InitialPopulation"></p>
+<h3 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h3><blockquote>
+<p>选择两条染色体 $A = { A<em>1,…,A</em>{max}}$ 和 $B = { B_1,…,B{max}}$，使用 $uniform\ crossover$。</p>
+<p>首先生成一个随机向量 $\beta$ 做为交叉掩码。$O_1$ 与 $O_2$ 为两个后代，当 $\beta$ 在位置 $L$ 处的位置为0，则 $O_1$ 继承 $A_L$，$O_2$ 继承 $B_L$；否则，$O_1$ 继承 $B_L$，$O_2$ 继承 $A_L$。</p>
+</blockquote>
+<h3 id="变异"><a href="#变异" class="headerlink" title="变异"></a>变异</h3><blockquote>
+<p>对染色体 $C = { G<em>1,…,G</em>{max}}$ 的变异，是以 $\frac{1}{max}$ 概率对某个组 $G_L$ 的变异。对某个组 $G_L$ 的变异，其实是对 $G_L = { \tau _1,…,\tau _k}$ 中的某个模板 $\tau$ 的变异。对 $\tau$ 的变异，其实是对 $\tau = [token_1,…token_n]$ 中某个 token 的变异。如果该位置 token 是固定的，则将其改变为 $<em>$，如果该位置 token 是可变的 $</em>$，则随机用匹配该模板的日志中相同位置替换，如果该位置是 $# spec#$，则不进行变异。</p>
+<p>变异有可能增加一般性，也有可能增加特殊性。</p>
+</blockquote>
+<h3 id="选择一个帕累托最优方案"><a href="#选择一个帕累托最优方案" class="headerlink" title="选择一个帕累托最优方案"></a>选择一个帕累托最优方案</h3><p><img src="/.io//ParetoOptimal.png" alt="帕累托最优"></p>
+
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-10-10T05:56:01.000Z" itemprop="datePublished">2019-10-10</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
+    
+    <span class="ui tiny label">
+        <a href="/tags/Paper-Notes/">Paper Notes</a>
+    </span>
+
+    
+
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/10/11/%E8%AE%BA%E6%96%87%E6%96%B9%E5%90%91/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    论文方向
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/10/09/Identifying-Impactful-Service-System-Problems-via-Log-Analysis/" class="ui tiny button">
+                    
+                    Identifying Impactful Service System Problems via Log Analysis
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#形式化问题"><span>形式化问题</span></a><ol><li><a href="#目标函数"><span>目标函数</span></a></li><li><a href="#对方案的约束"><span>对方案的约束</span></a></li></ol></li><li><a href="#MoLFI"><span>MoLFI</span></a><ol><li><a href="#预处理"><span>预处理</span></a></li><li><a href="#编码"><span>编码</span></a></li><li><a href="#初始化种群"><span>初始化种群</span></a></li><li><a href="#交叉"><span>交叉</span></a></li><li><a href="#变异"><span>变异</span></a></li><li><a href="#选择一个帕累托最优方案"><span>选择一个帕累托最优方案</span></a></li></ol></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">二十八度冬</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
+                href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

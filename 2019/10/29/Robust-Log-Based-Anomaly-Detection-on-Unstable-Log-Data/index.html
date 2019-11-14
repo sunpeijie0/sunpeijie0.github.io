@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="null">
+    <title>Robust Log-Based Anomaly Detection on Unstable Log Data | 二十八度冬</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="Log Parsing使用 Drain，将日志消息转化为日志事件。  Semantic Vectorization将每个日志事件转化为一个固定维度的向量。 日志事件预处理$E = [t_1,t_2,…t_N]$ 代表一个日志事件，$t_i$ 代表该事件中的一个 token，$N$ 是事件的长度。  首先去除事件中的非符号 token，比如定界符，操作符，标点符号，数字位数。   去掉停用词 “a”">
+<meta name="keywords" content="Paper Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robust Log-Based Anomaly Detection on Unstable Log Data">
+<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;29&#x2F;Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data&#x2F;index.html">
+<meta property="og:site_name" content="二十八度冬">
+<meta property="og:description" content="Log Parsing使用 Drain，将日志消息转化为日志事件。  Semantic Vectorization将每个日志事件转化为一个固定维度的向量。 日志事件预处理$E = [t_1,t_2,…t_N]$ 代表一个日志事件，$t_i$ 代表该事件中的一个 token，$N$ 是事件的长度。  首先去除事件中的非符号 token，比如定界符，操作符，标点符号，数字位数。   去掉停用词 “a”">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;neuron_network.jpg">
+<meta property="og:updated_time" content="2019-10-30T02:16:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;neuron_network.jpg">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "",
+  "url": "https://sunpeijie0.github.io"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>二十八度冬</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header"></a>
+                    
+                        <div class="meta">
+                            Programer / Shutterbug
+                        </div>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        <div class="item">
+                            <i class="marker icon" style="float: left"></i>
+                            <div class="content">Beijing</div>
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+
+                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Robust Log-Based Anomaly Detection on Unstable Log Data
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h3 id="Log-Parsing"><a href="#Log-Parsing" class="headerlink" title="Log Parsing"></a>Log Parsing</h3><p>使用 Drain，将日志消息转化为日志事件。</p>
+<hr>
+<h3 id="Semantic-Vectorization"><a href="#Semantic-Vectorization" class="headerlink" title="Semantic Vectorization"></a>Semantic Vectorization</h3><p>将每个日志事件转化为一个固定维度的向量。</p>
+<h4 id="日志事件预处理"><a href="#日志事件预处理" class="headerlink" title="日志事件预处理"></a>日志事件预处理</h4><p>$E = [t_1,t_2,…t_N]$ 代表一个日志事件，$t_i$ 代表该事件中的一个 token，$N$ 是事件的长度。</p>
+<ul>
+<li><p>首先去除事件中的非符号 token，比如定界符，操作符，标点符号，数字位数。 </p>
+</li>
+<li><p>去掉停用词 “a”, “the”, etc.</p>
+</li>
+<li><p>有些 token 包含两个单词，参考驼峰命名，将 token 分开</p>
+</li>
+</ul>
+<h4 id="单词向量化"><a href="#单词向量化" class="headerlink" title="单词向量化"></a>单词向量化</h4><ul>
+<li><p>要求两个日志事件对应的语义向量应该不一样</p>
+</li>
+<li><p>相似语义的事件应该用相似的向量表示</p>
+</li>
+</ul>
+<p>使用 FastText 算法，从单词里提取语义信息，高效地捕捉单词间的内部联系，将每个单词转换成一个 d 维的向量，每个日志事件是一个向量列表 $L = [v_1,v_2,…v_N]$，$v_i$ 是第 $i$ 个单词向量，$N$ 是日志事件 tokens 的个数。</p>
+<h4 id="TF-IDF-聚合"><a href="#TF-IDF-聚合" class="headerlink" title="TF-IDF 聚合"></a>TF-IDF 聚合</h4><p>基于这样的事实：如果在一条日志事件中 token 出现的次数越多，那么它越有代表性。$#word$ 是一条日志事件中目标单词的数量，$#total$ 是一条日志事件中单词的总数。 </p>
+<script type="math/tex; mode=display">
+ TF(word) = \frac{\#word}{\#total}</script><p>另一方面，如果某个 token 在很多日志事件中出现，那么它就太通用了，而不能很好地分辨日志事件，这时，应该降低这个单词的权重。$#L$ 是日志事件的总数，$#L{word}$ 是包含单词的日志事件数量。</p>
+<script type="math/tex; mode=display">
+IDF(word) = log(\frac{\#L}{\#L_{word}})</script><p>使用  $TF \times IDF$ 代表单词向量的权重，最终日志事件的权重是对所有单词向量加权平均。$V\in R^d$</p>
+<script type="math/tex; mode=display">
+V = \frac{1}{N}\sum_{i=1}^N w_i\cdot v_i</script><hr>
+<h3 id="基于Attention的分类"><a href="#基于Attention的分类" class="headerlink" title="基于Attention的分类"></a>基于Attention的分类</h3><p>以上已经把每个日志事件转化成一个 d 维的语义向量 $V$，每个日志序列用语义向量序列表示 $[V_1,V_2,…V_T]$。</p>
+<p>输入是语义向量序列，LogRobust 采用基于 Attention 的 Bi-LSTM 神经网络来对不稳定的日志序列进行异常检测。</p>
+<p><img src="/.io//neuron_network.jpg" alt="template"></p>
+<p>因为不同的日志事件对分类结果有不同的影响，引入 attention 机制到 Bi-LSTM，用来赋予日志事件不同的权重。</p>
+<script type="math/tex; mode=display">
+\alpha_t = tanh(W^{\alpha}_t \cdot h_t)</script><p>其中 $W^\alpha _t$ 代表在时间 t 的 attention 权重。</p>
+<script type="math/tex; mode=display">
+pred = softmax(W\cdot(\sum_{t=0}^{t=T}\alpha_t\cdot h_t))</script><p>计算出来的交叉熵作为损失函数，优化随机梯度下降算法，用来训练模型的参数。</p>
+<p>预测试时，给定一个序列，能够判断该序列是不是异常的。</p>
+
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-10-29T07:47:15.000Z" itemprop="datePublished">2019-10-29</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
+    
+    <span class="ui tiny label">
+        <a href="/tags/Paper-Notes/">Paper Notes</a>
+    </span>
+
+    
+
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/10/14/MariaDB-Corosync-Pacemaker-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="ui tiny button">
+                    
+                    MariaDB+Galera+Corosync+Pacemaker 高可用环境搭建
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#Log-Parsing"><span>Log Parsing</span></a></li><li><a href="#Semantic-Vectorization"><span>Semantic Vectorization</span></a><ol><li><a href="#日志事件预处理"><span>日志事件预处理</span></a></li><li><a href="#单词向量化"><span>单词向量化</span></a></li><li><a href="#TF-IDF-聚合"><span>TF-IDF 聚合</span></a></li></ol></li><li><a href="#基于Attention的分类"><span>基于Attention的分类</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">二十八度冬</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
+                href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

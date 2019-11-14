@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="null">
+    <title>Device-Agnostic Log Anomaly Classification with Partial Labels | 二十八度冬</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="IWQoS 2018 传统的二分类器包括正样本和负样本，PU Learning解决的是在只有部分标记的正样本以及一些未标记的样本的情况下，二分类器的训练问题。  预处理不同的设备厂商和设备类型有不同格式的日志消息，现有的模板提取方法需要针对每个设备都进行模板提取。本文将单词分成两类，文本和参数，并过滤掉参数，得到与设备无关的日志。 特征向量使用 TF-IDF 描述模板的权重。 训练和分类使用 P">
+<meta name="keywords" content="Paper Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Device-Agnostic Log Anomaly Classification with Partial Labels">
+<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;02&#x2F;Device-Agnostic%20Log%20Anomaly%20Classification%20with%20Partial%20Labels&#x2F;index.html">
+<meta property="og:site_name" content="二十八度冬">
+<meta property="og:description" content="IWQoS 2018 传统的二分类器包括正样本和负样本，PU Learning解决的是在只有部分标记的正样本以及一些未标记的样本的情况下，二分类器的训练问题。  预处理不同的设备厂商和设备类型有不同格式的日志消息，现有的模板提取方法需要针对每个设备都进行模板提取。本文将单词分成两类，文本和参数，并过滤掉参数，得到与设备无关的日志。 特征向量使用 TF-IDF 描述模板的权重。 训练和分类使用 P">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-12T12:01:08.000Z">
+<meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "",
+  "url": "https://sunpeijie0.github.io"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>二十八度冬</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header"></a>
+                    
+                        <div class="meta">
+                            Programer / Shutterbug
+                        </div>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        <div class="item">
+                            <i class="marker icon" style="float: left"></i>
+                            <div class="content">Beijing</div>
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+
+                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-Device-Agnostic Log Anomaly Classification with Partial Labels" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Device-Agnostic Log Anomaly Classification with Partial Labels
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <blockquote>
+<p>IWQoS 2018</p>
+<p>传统的二分类器包括正样本和负样本，PU Learning解决的是在只有部分标记的正样本以及一些未标记的样本的情况下，二分类器的训练问题。</p>
+</blockquote>
+<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>不同的设备厂商和设备类型有不同格式的日志消息，现有的模板提取方法需要针对每个设备都进行模板提取。本文将单词分成两类，文本和参数，并过滤掉参数，得到与设备无关的日志。</p>
+<h3 id="特征向量"><a href="#特征向量" class="headerlink" title="特征向量"></a>特征向量</h3><p>使用 TF-IDF 描述模板的权重。</p>
+<h3 id="训练和分类"><a href="#训练和分类" class="headerlink" title="训练和分类"></a>训练和分类</h3><p>使用 PU-Learning 将单词分类，并使用 SVM 作为多分类器算法，在 SVM 训练后，可以得到每个模板的训练系数向量，通过将每个向量的值排序，得到 top n 个重要的单词，管理员根据这 n 个重要的单词推断出日志所属的类别。</p>
+
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-11-02T02:39:57.000Z" itemprop="datePublished">2019-11-02</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
+    
+    <span class="ui tiny label">
+        <a href="/tags/Paper-Notes/">Paper Notes</a>
+    </span>
+
+    
+
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    NFS+Pacemaker实现Mariadb高可用
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/" class="ui tiny button">
+                    
+                    LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#预处理"><span>预处理</span></a></li><li><a href="#特征向量"><span>特征向量</span></a></li><li><a href="#训练和分类"><span>训练和分类</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">二十八度冬</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
+                href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

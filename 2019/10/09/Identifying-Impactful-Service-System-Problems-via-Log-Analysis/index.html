@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="null">
+    <title>Identifying Impactful Service System Problems via Log Analysis | 二十八度冬</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="ESEC&#x2F;SIGSOFT FSE 2018 通过将日志序列向量化，再建立其与 KPI 指标的回归模型，得到对系统具有影响力的序列，进而识别出相应的问题。  日志序列向量化获得日志序列 拿到日志消息后，用正则表达式替换参数域。基于加权编辑距离，对每个日志消息分组，提取组内日志消息的最长公共子序列作为日志事件。 在每个时间间隔内，将具有同一个任务 ID 的日志消息连在一起，并将它们转化为一个日志事件">
+<meta name="keywords" content="Paper Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Identifying Impactful Service System Problems via Log Analysis">
+<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;09&#x2F;Identifying-Impactful-Service-System-Problems-via-Log-Analysis&#x2F;index.html">
+<meta property="og:site_name" content="二十八度冬">
+<meta property="og:description" content="ESEC&#x2F;SIGSOFT FSE 2018 通过将日志序列向量化，再建立其与 KPI 指标的回归模型，得到对系统具有影响力的序列，进而识别出相应的问题。  日志序列向量化获得日志序列 拿到日志消息后，用正则表达式替换参数域。基于加权编辑距离，对每个日志消息分组，提取组内日志消息的最长公共子序列作为日志事件。 在每个时间间隔内，将具有同一个任务 ID 的日志消息连在一起，并将它们转化为一个日志事件">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-12T12:01:14.000Z">
+<meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "",
+  "url": "https://sunpeijie0.github.io"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>二十八度冬</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header"></a>
+                    
+                        <div class="meta">
+                            Programer / Shutterbug
+                        </div>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        <div class="item">
+                            <i class="marker icon" style="float: left"></i>
+                            <div class="content">Beijing</div>
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+
+                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-Identifying-Impactful-Service-System-Problems-via-Log-Analysis" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Identifying Impactful Service System Problems via Log Analysis
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <blockquote>
+<p>ESEC/SIGSOFT FSE 2018</p>
+<p>通过将日志序列向量化，再建立其与 KPI 指标的回归模型，得到对系统具有影响力的序列，进而识别出相应的问题。</p>
+</blockquote>
+<h2 id="日志序列向量化"><a href="#日志序列向量化" class="headerlink" title="日志序列向量化"></a>日志序列向量化</h2><h3 id="获得日志序列"><a href="#获得日志序列" class="headerlink" title="获得日志序列"></a>获得日志序列</h3><blockquote>
+<p>拿到日志消息后，用正则表达式替换参数域。基于加权编辑距离，对每个日志消息分组，提取组内日志消息的最长公共子序列作为日志事件。</p>
+<p>在每个时间间隔内，将具有同一个任务 ID 的日志消息连在一起，并将它们转化为一个日志事件集合，这个日志事件集合就是日志序列。同一个时间间隔内，有多个日志序列。</p>
+</blockquote>
+<h3 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h3><blockquote>
+<p>日志序列是由一串日志事件组成，因此，为了计算日志序列的权重，需要先计算每个日志事件的权重。</p>
+</blockquote>
+<h4 id="IDF-权重"><a href="#IDF-权重" class="headerlink" title="IDF 权重"></a>IDF 权重</h4><blockquote>
+<p>基于这样的事实：日志中高频事件一般并不是问题事件，偶尔出现的才可能是问题事件。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+w_{idf}(e) = log(\frac{N}{n_e})</script><blockquote>
+<p>$w_{idf}(e)$ 表示事件 $e$ 的 IDF 权重，$N$ 表示所有事件的个数，$n_e$ 表示事件 $e$ 出现的次数 。</p>
+</blockquote>
+<h4 id="Importance-权重"><a href="#Importance-权重" class="headerlink" title="Importance 权重"></a>Importance 权重</h4><blockquote>
+<p>基于这样的事实：与 KPI 下降联系紧密的事件应该拥有较高的权重。在每个时间间隔，根据多个序列，计算每个事件出现的次数总和，将其与 KPI 指标建立多元回归模型，得到事件 $e$ 的 Importance 权重 $w_{cor}(e)$。</p>
+</blockquote>
+<h4 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h4><script type="math/tex; mode=display">
+w(e) = \alpha * Norm(w_{idf}(e)) + (1-\alpha) * w_{cor}(e)</script><blockquote>
+<p>该权重作为事件 $e$ 的权重，有了事件权重，就可以得到序列向量。</p>
+</blockquote>
+<hr>
+<h2 id="级联聚类"><a href="#级联聚类" class="headerlink" title="级联聚类"></a>级联聚类</h2><blockquote>
+<p>目的是快速准确将不同的序列向量分类，该过程是一个迭代过程，直到所有的日志序列都被分类，该过程才停止。</p>
+</blockquote>
+<h3 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h3><blockquote>
+<p>采样是为了快速地聚类，先对一部分日志序列聚类，然后对未采样的序列进行匹配，实在匹配不到了再对剩余的日志序列进行迭代级联聚类的过程。</p>
+</blockquote>
+<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><blockquote>
+<p>刚开始，每个序列是一类。然后求每个簇到其它所有簇的距离，如果距离小于阈值  $\theta$ ，就把它们归为一类。最后，所有簇与其它簇的距离都小于阈值 $\theta$ 。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+D(A,B) = max\{d(a,b), \forall a\in A, \forall b \in B\}</script><blockquote>
+<p>两个序列间距离计算方法为 $d(u,v) = \sqrt{||u-v|} = \sqrt{\sum_{i=1}^{n}{(u_i-v_i)^2}}$，其中 $u_i$ 和 $v_i$ 为日志事件的权重。</p>
+</blockquote>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><blockquote>
+<p>取簇里所有序列向量的平均值，作为该簇的特征。</p>
+</blockquote>
+<h3 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h3><blockquote>
+<p>将剩下未采样的每个序列进行匹配，求该序列到所有簇的距离。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\mu = min\{d(x,P_j), \forall j \in \{1,2,...,k\}\}</script><blockquote>
+<p>其中 $P_j$ 为第 $j$ 个簇的特征。如果 $\mu$ 小于阈值 $\theta$ ，则匹配成功。</p>
+</blockquote>
+<hr>
+<h2 id="相关性分析"><a href="#相关性分析" class="headerlink" title="相关性分析"></a>相关性分析</h2><blockquote>
+<p>级联聚类只是对日志序列聚类，并没有分析与 KPI 相关的问题。基于这样的事实：与 KPI 相关的事件出现的越频繁，KPI 下降越多，可以理解为，与 KPI 相关的簇越大， KPI 下降越多。因此建立日志序列与 KPI 的多元线性回归模型。</p>
+</blockquote>
+<script type="math/tex; mode=display">\begin {pmatrix}
+     c_{11} & c_{12} & c_{13} & \cdots & c_{1n} \\
+     c_{21} & c_{22} & c_{23} & \cdots & c_{2n} \\
+     \vdots  & \vdots& \vdots & \ddots & \vdots \\
+     c_{d1} & c_{d2} & c_{d3} & \cdots & c_{dn}    
+\end {pmatrix}  \begin {pmatrix}
+     \beta_{11}\\
+     \beta_{21}\\
+     \vdots\\
+     \beta_{d1}    
+\end {pmatrix}  + \begin {pmatrix}
+     \epsilon_{11}\\
+     \epsilon_{21}\\
+     \vdots\\
+     \epsilon_{d1}    
+\end {pmatrix} = \begin {pmatrix}
+     KPI_{11}\\
+     KPI_{21}\\
+     \vdots\\
+     KPI_{d1}    
+\end {pmatrix}</script><blockquote>
+<p>为了找到哪些簇与 KPI 高度相关，使用 $t-statistic$ 方法。对 KPI 影响大的簇的系数不应该为0，因此，我们对每个自变量作一个空假设，假设它的系数是0。然后，一个双侧 t-test 检测每个系数的显著差异，p 代表空假设高概率被拒绝。如果 p-value 小于等于某个阈值，代表对应的簇对 KPI 是 impactful problem。</p>
+</blockquote>
+<p>​        </p>
+
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-10-09T10:23:47.000Z" itemprop="datePublished">2019-10-09</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
+    
+    <span class="ui tiny label">
+        <a href="/tags/Paper-Notes/">Paper Notes</a>
+    </span>
+
+    
+
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/10/10/A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    A Search-based Approach for Accurate Identification of Log Message Formats
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/" class="ui tiny button">
+                    
+                    Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#日志序列向量化"><span>日志序列向量化</span></a><ol><li><a href="#获得日志序列"><span>获得日志序列</span></a></li><li><a href="#向量化"><span>向量化</span></a><ol><li><a href="#IDF-权重"><span>IDF 权重</span></a></li><li><a href="#Importance-权重"><span>Importance 权重</span></a></li><li><a href="#权重"><span>权重</span></a></li></ol></li></ol></li><li><a href="#级联聚类"><span>级联聚类</span></a><ol><li><a href="#采样"><span>采样</span></a></li><li><a href="#聚类"><span>聚类</span></a></li><li><a href="#特征提取"><span>特征提取</span></a></li><li><a href="#匹配"><span>匹配</span></a></li></ol></li><li><a href="#相关性分析"><span>相关性分析</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">二十八度冬</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
+                href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
