@@ -285,7 +285,7 @@ ESEC/SIGSOFT FSE 2018
                     
 <aside class="col-md-4 sidebar">
     
-    
+    <!-- 
 <div class="widget">
     <h3 class="title">
         Search
@@ -315,7 +315,7 @@ ESEC/SIGSOFT FSE 2018
         </div>
     </div>
 </div>
-
+ -->
     
     
     
@@ -416,5 +416,21 @@ ESEC/SIGSOFT FSE 2018
 
 
 <script src="/js/app.js?rev=@@hash"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
