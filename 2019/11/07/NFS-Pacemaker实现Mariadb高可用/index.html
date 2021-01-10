@@ -1,479 +1,481 @@
-
-
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns#">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="description" content="null">
-    <title>NFS+Pacemaker实现Mariadb高可用 | 二十八度冬</title>
 
-    <!-- Open Graph -->
-    <meta name="description" content="&amp;#x4F7F;&amp;#x7528; NFS (Network File System) &amp;#x5B9E;&amp;#x73B0;&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x5171;&amp;#x4EAB;&amp;#x5B58;&amp;#x50A8;&amp;#xFF0C;&amp;#x4F7F;&amp;#x7528; Pacemaker &amp;#x7BA1;&amp;#x7406;&amp;#x96C6;&amp;">
-<meta name="keywords" content="OpenStack">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NFS+Pacemaker实现Mariadb高可用">
-<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;index.html">
-<meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="&amp;#x4F7F;&amp;#x7528; NFS (Network File System) &amp;#x5B9E;&amp;#x73B0;&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x5171;&amp;#x4EAB;&amp;#x5B58;&amp;#x50A8;&amp;#xFF0C;&amp;#x4F7F;&amp;#x7528; Pacemaker &amp;#x7BA1;&amp;#x7406;&amp;#x96C6;&amp;">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;cluster_nomal.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;cluster_stop_db.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;cluster_stop_db_recover.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;cluster_down_node.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;db_connected_successfully.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;create_database.jpg">
-<meta property="og:updated_time" content="2019-11-07T06:02:40.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8&#x2F;cluster_nomal.jpg">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
 
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:",
-  "image": "",
-  "name": "",
-  "url": "https://sunpeijie0.github.io"
-}
-</script>
-    <script>
-    var algoliaEnabled = false;
+<meta name="keywords" content="OpenStack" />
+
+
+<meta name="description" content="
+使用 NFS (Network File System) 实现数据库文件的共享存储，使用 Pacemaker 管理集群。
+
+整体架构其中 192.168.0.1 与 192.168.0.2 为..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
     
-</script>
+    NFS+Pacemaker实现Mariadb高可用 |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
 
     
 
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
     
-    
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
     
 
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
-
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
-    </div>
-
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
-
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>二十八度冬</h3>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
         </div>
     </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
                 </div>
-                <div class="content">
-                    <a class="header"></a>
-                    
-                        <div class="meta">
-                            Programer / Shutterbug
-                        </div>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
                         
-                        <div class="item">
-                            <i class="marker icon" style="float: left"></i>
-                            <div class="content">Beijing</div>
-                        </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
                         
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
                         
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
                         
-
-                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
-
-                            
-                    </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="NFS+Pacemaker实现Mariadb高可用">
+            
+            NFS+Pacemaker实现Mariadb高可用
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/OpenStack/" rel="tag">OpenStack</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2019/11/07</span>
+    </span>
+    
+    
 </div>
-
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                430</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
     
-    
-
-    
-
-    
-    <a href="/index.html" class="item" >
-        <i class="home icon"></i>
-        HOME
-    </a>
-
-    
-
-    
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        <div id="post-NFS-Pacemaker实现Mariadb高可用" class="ui main container article-type-post">
-
-    
-
-    <div class="ui divided grid">
-
-        <div class="two column row" id="article-content">
-
-            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
-                
-
-<h1 class="ui header">
-    
-    NFS+Pacemaker实现Mariadb高可用
-</h1>
-
-
-
-                <div class="article-inner">
-
-                    <div class="article-entry" itemprop="articleBody">
-                        
-                        <blockquote>
-<p>&#x4F7F;&#x7528; NFS (Network File System) &#x5B9E;&#x73B0;&#x6570;&#x636E;&#x5E93;&#x6587;&#x4EF6;&#x7684;&#x5171;&#x4EAB;&#x5B58;&#x50A8;&#xFF0C;&#x4F7F;&#x7528; Pacemaker &#x7BA1;&#x7406;&#x96C6;&#x7FA4;&#x3002;</p>
+    <div class="post-body post-content">
+        <blockquote>
+<p>使用 NFS (Network File System) 实现数据库文件的共享存储，使用 Pacemaker 管理集群。</p>
 </blockquote>
-<h3 id="&#x6574;&#x4F53;&#x67B6;&#x6784;"><a href="#&#x6574;&#x4F53;&#x67B6;&#x6784;" class="headerlink" title="&#x6574;&#x4F53;&#x67B6;&#x6784;"></a>&#x6574;&#x4F53;&#x67B6;&#x6784;</h3><p>&#x5176;&#x4E2D; 192.168.0.1 &#x4E0E; 192.168.0.2 &#x4E3A;&#x6570;&#x636E;&#x5E93;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;&#xFF0C;&#x5B83;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x5728;&#x5171;&#x4EAB;&#x5B58;&#x50A8;&#x8282;&#x70B9; 192.168.0.3</p>
-<p>192.168.0.1 MariaDB &#x8282;&#x70B9;</p>
-<ul class="ui list">
+<h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p>其中 192.168.0.1 与 192.168.0.2 为数据库高可用集群，它们的数据存储在共享存储节点 192.168.0.3</p>
+<p>192.168.0.1 MariaDB 节点</p>
+<ul>
 <li>Ubuntu Server 18.04 </li>
 <li>mariadb-server</li>
 <li>nfs-common</li>
 <li>corosync + pacemaker + crmsh</li>
 </ul>
-<p>192.168.0.2 MariaDB &#x8282;&#x70B9;</p>
-<ul class="ui list">
+<p>192.168.0.2 MariaDB 节点</p>
+<ul>
 <li>Ubuntu Server 18.04 </li>
 <li>mariadb-server</li>
 <li>nfs-common</li>
 <li>corosync + pacemaker + crmsh</li>
 </ul>
-<p>192.168.0.3 NFS &#x670D;&#x52A1;&#x7AEF;</p>
-<ul class="ui list">
+<p>192.168.0.3 NFS 服务端</p>
+<ul>
 <li>Ubuntu Server 18.04 </li>
 <li>nfs-kernel-server</li>
 </ul>
-<h3 id="MariaDB&#x5B89;&#x88C5;&#x914D;&#x7F6E;-192-168-0-1-192-168-0-2"><a href="#MariaDB&#x5B89;&#x88C5;&#x914D;&#x7F6E;-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB&#x5B89;&#x88C5;&#x914D;&#x7F6E;(192.168.0.1, 192.168.0.2)"></a>MariaDB&#x5B89;&#x88C5;&#x914D;&#x7F6E;(192.168.0.1, 192.168.0.2)</h3><p>&#x5728;/etc/apt/sources.list.d&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;mariadb.list&#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;&#xFF1A;</p>
+<h3 id="MariaDB安装配置-192-168-0-1-192-168-0-2"><a href="#MariaDB安装配置-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB安装配置(192.168.0.1, 192.168.0.2)"></a>MariaDB安装配置(192.168.0.1, 192.168.0.2)</h3><p>在/etc/apt/sources.list.d目录下创建mariadb.list文件，添加：</p>
 <blockquote>
 <p>deb [arch=amd64,arm64,ppc64el] <a href="https://mirrors.tuna.tsinghua.edu.cn/mariadb/repo/10.4/ubuntu/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/mariadb/repo/10.4/ubuntu/</a> bionic main</p>
 </blockquote>
-<p>&#x5BFC;&#x5165;MariaDB&#x516C;&#x94A5;&#xFF0C;&#x7528;&#x6237;&#x4E0B;&#x8F7D;&#x65F6;&#x7F51;&#x7AD9;&#x9A8C;&#x8BC1;</p>
+<p>导入MariaDB公钥，用户下载时网站验证</p>
 <blockquote>
-<p>apt-key adv &#x2014;recv-keys &#x2014;keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8</p>
+<p>apt-key adv —recv-keys —keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8</p>
 </blockquote>
-<p>&#x66F4;&#x65B0;&#x6E90;</p>
+<p>更新源</p>
 <blockquote>
 <p>apt update</p>
 </blockquote>
-<p>&#x5B89;&#x88C5;</p>
+<p>安装</p>
 <blockquote>
 <p>apt install mariadb-server</p>
 </blockquote>
-<p>&#x5148;&#x505C;&#x6B62; mariadb&#xFF0C;&#x4EE5;&#x4FBF;&#x4E8E;&#x4FEE;&#x6539;&#x914D;&#x7F6E;</p>
+<p>先停止 mariadb，以便于修改配置</p>
 <blockquote>
 <p>service mysql stop</p>
 </blockquote>
-<p>&#x4FEE;&#x6539;&#x6587;&#x4EF6; /etc/mysql/my.cnf</p>
+<p>修改文件 /etc/mysql/my.cnf</p>
 <blockquote>
 <p>bind-address = 0.0.0.0</p>
 <p>max_connections = 65535</p>
 <p>max_connect_errors = 65535</p>
 </blockquote>
-<p>&#x542F;&#x52A8; mariadb</p>
+<p>启动 mariadb</p>
 <blockquote>
 <p>service mysql start</p>
 </blockquote>
-<p>&#x8BBE;&#x7F6E;&#x5BC6;&#x7801;&#x4EE5;&#x53CA;&#x8FDC;&#x7A0B;&#x8BBF;&#x95EE;&#x6743;&#x9650;</p>
+<p>设置密码以及远程访问权限</p>
 <blockquote>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO &#x2018;root&#x2019;@&#x2019;%&#x2019; IDENTIFIED BY &#x2018;123456&#x2019; WITH GRANT OPTION;</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘123456’ WITH GRANT OPTION;</p>
 <p>FLUSH PRIVILEGES;</p>
 <p>use mysql;</p>
-<p>delete from user where user=&#x2019;root&#x2019; and host=&#x2019;localhost&#x2019;;</p>
+<p>delete from user where user=’root’ and host=’localhost’;</p>
 <p>FLUSH PRIVILEGES;</p>
 <p>exit;</p>
 </blockquote>
-<h3 id="NFS-&#x670D;&#x52A1;&#x7AEF;-192-168-0-3"><a href="#NFS-&#x670D;&#x52A1;&#x7AEF;-192-168-0-3" class="headerlink" title="NFS &#x670D;&#x52A1;&#x7AEF;(192.168.0.3)"></a>NFS &#x670D;&#x52A1;&#x7AEF;(192.168.0.3)</h3><p>&#x5B89;&#x88C5;</p>
+<h3 id="NFS-服务端-192-168-0-3"><a href="#NFS-服务端-192-168-0-3" class="headerlink" title="NFS 服务端(192.168.0.3)"></a>NFS 服务端(192.168.0.3)</h3><p>安装</p>
 <blockquote>
 <p>apt install nfs-kernel-server -y</p>
 </blockquote>
-<p>&#x7F16;&#x8F91;&#x6587;&#x4EF6; /etc/exports</p>
+<p>编辑文件 /etc/exports</p>
 <blockquote>
 <p>/mariadb_data *(rw,sync,no_root_squash)</p>
 </blockquote>
-<p>&#x91CD;&#x542F; nfs-kernel-server</p>
+<p>重启 nfs-kernel-server</p>
 <blockquote>
 <p>service nfs-kernel-server restart</p>
 </blockquote>
-<p>&#x4E3A;&#x6570;&#x636E;&#x5E93;&#x5171;&#x4EAB;&#x521B;&#x5EFA;&#x7528;&#x6237;&#xFF0C;gid &#x548C; uid &#x5E94;&#x8BE5;&#x548C;&#x4E24;&#x53F0; mariadb &#x7684; mysql &#x7528;&#x6237;&#x4E00;&#x81F4;</p>
+<p>为数据库共享创建用户，gid 和 uid 应该和两台 mariadb 的 mysql 用户一致</p>
 <blockquote>
 <p>groupadd -r -g 117 mysql</p>
 <p>useradd -r -u 112 -g 117 mysql</p>
 </blockquote>
-<p>&#x521B;&#x5EFA;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x5939;</p>
+<p>创建共享文件夹</p>
 <blockquote>
 <p>mkdir /mariadb_data/{mydata,logs} -pv</p>
 <p>chmod -R 775 /mariadb_data</p>
 <p>chown -R mysql.mysql /mariadb_data</p>
 </blockquote>
-<h3 id="MariaDB-&#x8282;&#x70B9;&#x914D;&#x7F6E;-NFS-192-168-0-1-192-168-0-2"><a href="#MariaDB-&#x8282;&#x70B9;&#x914D;&#x7F6E;-NFS-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB &#x8282;&#x70B9;&#x914D;&#x7F6E; NFS(192.168.0.1, 192.168.0.2)"></a>MariaDB &#x8282;&#x70B9;&#x914D;&#x7F6E; NFS(192.168.0.1, 192.168.0.2)</h3><p>&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x5939;</p>
+<h3 id="MariaDB-节点配置-NFS-192-168-0-1-192-168-0-2"><a href="#MariaDB-节点配置-NFS-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB 节点配置 NFS(192.168.0.1, 192.168.0.2)"></a>MariaDB 节点配置 NFS(192.168.0.1, 192.168.0.2)</h3><p>创建文件夹</p>
 <blockquote>
 <p>mkdir /mariadb_data</p>
 <p>chown mysql.mysql /mariadb_data</p>
 </blockquote>
-<p>&#x5B89;&#x88C5; NFS &#x5FC5;&#x8981;&#x7684;&#x5305;</p>
+<p>安装 NFS 必要的包</p>
 <blockquote>
 <p>apt install nfs-common</p>
 </blockquote>
-<p>&#x6302;&#x8F7D;&#x5F53;&#x524D;&#x7684; mariadb_data &#x5230;&#x8FDC;&#x7A0B;&#x6587;&#x4EF6;&#x5939;</p>
+<p>挂载当前的 mariadb_data 到远程文件夹</p>
 <blockquote>
 <p>mount -t nfs 192.168.0.3:/mariadb_data /mariadb_data</p>
 </blockquote>
-<p>&#x505C;&#x6B62; mariadb</p>
+<p>停止 mariadb</p>
 <blockquote>
 <p>service mysql stop</p>
 </blockquote>
-<p>&#x5C06;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x5939;&#x79FB;&#x52A8;&#x5230;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x5939;</p>
+<p>将数据文件夹移动到共享文件夹</p>
 <blockquote>
 <p>mv /var/lib/mysql /mariadb_data/mydata/</p>
 </blockquote>
-<p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6; /etc/mysql/my.cnf</p>
+<p>修改配置文件 /etc/mysql/my.cnf</p>
 <blockquote>
 <p>datadir = /mariadb_data/mydata/mysql</p>
 <p>socket = /mariadb_data/mydata/mysql/mysqld.sock</p>
 </blockquote>
-<p>&#x542F;&#x52A8; mariadb</p>
+<p>启动 mariadb</p>
 <blockquote>
 <p>service mysql start</p>
 </blockquote>
-<h3 id="MariaDB-&#x8282;&#x70B9;&#x914D;&#x7F6E;-Pacemaker-Corosync-192-168-0-1-192-168-0-2"><a href="#MariaDB-&#x8282;&#x70B9;&#x914D;&#x7F6E;-Pacemaker-Corosync-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB &#x8282;&#x70B9;&#x914D;&#x7F6E; Pacemaker+Corosync(192.168.0.1, 192.168.0.2)"></a>MariaDB &#x8282;&#x70B9;&#x914D;&#x7F6E; Pacemaker+Corosync(192.168.0.1, 192.168.0.2)</h3><p>&#x5B89;&#x88C5;&#x5FC5;&#x8981;&#x7684;&#x5305;</p>
+<h3 id="MariaDB-节点配置-Pacemaker-Corosync-192-168-0-1-192-168-0-2"><a href="#MariaDB-节点配置-Pacemaker-Corosync-192-168-0-1-192-168-0-2" class="headerlink" title="MariaDB 节点配置 Pacemaker+Corosync(192.168.0.1, 192.168.0.2)"></a>MariaDB 节点配置 Pacemaker+Corosync(192.168.0.1, 192.168.0.2)</h3><p>安装必要的包</p>
 <blockquote>
 <p>apt-get install pacemaker pcs corosync fence-agents resource-agents crmsh -y</p>
 </blockquote>
-<p>&#x4FEE;&#x6539; hacluster &#x5BC6;&#x7801;&#xFF0C;&#x8BE5;&#x7528;&#x6237;&#x662F;&#x81EA;&#x52A8;&#x88AB;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x7528;&#x6765;&#x96C6;&#x7FA4;&#x95F4;&#x8BA4;&#x8BC1;</p>
+<p>修改 hacluster 密码，该用户是自动被创建的，用来集群间认证</p>
 <blockquote>
 <p>passwd hacluster</p>
 </blockquote>
-<p>&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x53EA;&#x9700;&#x5728;&#x67D0;&#x4E2A; MariaDB &#x8282;&#x70B9;&#x6267;&#x884C;</p>
+<p>以下命令只需在某个 MariaDB 节点执行</p>
 <blockquote>
-<p>pcs cluster auth 192.168.237.136 192.168.237.137 -u hacluster -p 123456 &#x2014;force</p>
-<p>pcs cluster setup &#x2014;force &#x2014;name openstack 192.168.237.136 192.168.237.137</p>
-<p>pcs cluster start &#x2014;all</p>
-<p>pcs cluster enable &#x2014;all</p>
+<p>pcs cluster auth 192.168.237.136 192.168.237.137 -u hacluster -p 123456 —force</p>
+<p>pcs cluster setup —force —name openstack 192.168.237.136 192.168.237.137</p>
+<p>pcs cluster start —all</p>
+<p>pcs cluster enable —all</p>
 <p>pcs property set stonith-enabled=false</p>
 </blockquote>
-<p>&#x4E5F;&#x53EF;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6; /etc/corosync/corosync.conf &#x521B;&#x5EFA;&#x96C6;&#x7FA4;</p>
+<p>也可修改配置文件 /etc/corosync/corosync.conf 创建集群</p>
 <blockquote>
 <p>totem {<br>version: 2<br>cluster_name: openstack<br>secauth: off<br>transport: udpu<br>}</p>
 <p>nodelist {<br>node {<br>  ring0_addr: mariadb1<br>  nodeid: 1<br>}<br>node {<br>       ring0_addr: mariadb2<br>       nodeid: 2<br>   }<br>}</p>
 <p>quorum {<br>   provider: corosync_votequorum<br>   two_node: 1<br>}</p>
 <p>logging {<br>   to_logfile: yes<br>   logfile: /var/log/corosync/corosync.log<br>   to_syslog: yes<br>}</p>
 </blockquote>
-<p>&#x914D;&#x7F6E; VIP&#x5730;&#x5740;&#xFF0C;&#x7528;&#x6765;&#x5916;&#x754C;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x901A;&#x4FE1;</p>
+<p>配置 VIP地址，用来外界与数据库通信</p>
 <blockquote>
 <p>pcs resource create virtual_ip ocf: heartbeat: IPaddr2 ip=192.168.0.110 cidr_netmask=24 op monitor interval=5s</p>
 </blockquote>
-<p>&#x914D;&#x7F6E; mariadb &#x8D44;&#x6E90;</p>
+<p>配置 mariadb 资源</p>
 <blockquote>
 <p>crm configure primitive mariadb systemd:mariadb op start timeout=120s op stop timeout=120s op monitor interval=20s timeout=30s</p>
 </blockquote>
-<p>&#x5C06; mariadb &#x4E0E; VIP &#x8D44;&#x6E90;&#x7ED1;&#x5B9A;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x673A;&#x5668;</p>
+<p>将 mariadb 与 VIP 资源绑定在同一个机器</p>
 <blockquote>
 <p>crm configure colocation vip_with_mariadb inf: virtual_ip mariadb</p>
 </blockquote>
-<h3 id="&#x6D4B;&#x8BD5;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;"><a href="#&#x6D4B;&#x8BD5;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;"></a>&#x6D4B;&#x8BD5;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;</h3><p>&#x67E5;&#x770B;&#x96C6;&#x7FA4;&#x8D44;&#x6E90;&#x72B6;&#x6001;</p>
+<h3 id="测试高可用集群"><a href="#测试高可用集群" class="headerlink" title="测试高可用集群"></a>测试高可用集群</h3><p>查看集群资源状态</p>
 <blockquote>
 <p>crm status</p>
 </blockquote>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_nomal.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_nomal.jpg" alt="template" class="ui centered image"></a></p>
-<h4 id="&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x6302;&#x4E86;"><a href="#&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x6302;&#x4E86;" class="headerlink" title="&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x6302;&#x4E86;"></a>&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x6302;&#x4E86;</h4><p>mariadb1 &#x548C; mariadb2 &#x5206;&#x522B;&#x5BF9;&#x5E94; 192.168.0.1 &#x548C; 192.168.0.2&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x73B0;&#x5728;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684;&#x6570;&#x636E;&#x5E93;&#x4E3A; 192.168.0.1 &#x7684; mariadb&#xFF0C;&#x73B0;&#x5728;&#x6A21;&#x62DF;&#x8BA9; 192.168.0.1 &#x7684; mariadb down</p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_nomal.jpg" alt="template"></p>
+<h4 id="模拟主节点数据库服务挂了"><a href="#模拟主节点数据库服务挂了" class="headerlink" title="模拟主节点数据库服务挂了"></a>模拟主节点数据库服务挂了</h4><p>mariadb1 和 mariadb2 分别对应 192.168.0.1 和 192.168.0.2，可以看出，现在对外提供服务的数据库为 192.168.0.1 的 mariadb，现在模拟让 192.168.0.1 的 mariadb down</p>
 <blockquote>
 <p>service mysql stop</p>
 </blockquote>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db.jpg" alt="template" class="ui centered image"></a></p>
-<p>&#x7A0D;&#x7B49;&#x4E00;&#x4F1A;</p>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db_recover.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db_recover.jpg" alt="template" class="ui centered image"></a></p>
-<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x88AB; Pacemaker &#x91CD;&#x542F;&#x4E86;&#xFF0C;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8282;&#x70B9;&#x4F9D;&#x7136;&#x662F; 192.168.0.1</p>
-<h4 id="&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x5B95;&#x673A;"><a href="#&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x5B95;&#x673A;" class="headerlink" title="&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x5B95;&#x673A;"></a>&#x6A21;&#x62DF;&#x4E3B;&#x8282;&#x70B9;&#x5B95;&#x673A;</h4><p>&#x73B0;&#x5728;&#x6A21;&#x62DF; 192.168.0.1 &#x8282;&#x70B9;&#x5B95;&#x673A;</p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db.jpg" alt="template"></p>
+<p>稍等一会</p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db_recover.jpg" alt="template"></p>
+<p>可以看到，数据库被 Pacemaker 重启了，对外提供数据库的节点依然是 192.168.0.1</p>
+<h4 id="模拟主节点宕机"><a href="#模拟主节点宕机" class="headerlink" title="模拟主节点宕机"></a>模拟主节点宕机</h4><p>现在模拟 192.168.0.1 节点宕机</p>
 <blockquote>
 <p>service pacemaker stop</p>
 </blockquote>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_down_node.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_down_node.jpg" alt="template" class="ui centered image"></a></p>
-<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x73B0;&#x5728;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8282;&#x70B9;&#x4F9D;&#x7136;&#x662F; 192.168.0.2</p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_down_node.jpg" alt="template"></p>
+<p>可以看到，现在对外提供数据库的节点依然是 192.168.0.2</p>
 <blockquote>
-<p>&#x7ED3;&#x8BBA;&#xFF1A;&#x5F53;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x6302;&#x4E86;&#xFF0C;pacemaker&#x505A;&#x7684;&#x662F;&#x5C1D;&#x8BD5;&#x91CD;&#x542F;&#x670D;&#x52A1;&#xFF1B;&#x4F46;&#x5982;&#x679C;&#x662F;&#x8282;&#x70B9;&#x5B95;&#x673A;&#xFF0C;pacemaker &#x5C06;&#x4E3B;&#x8282;&#x70B9;&#x8F6C;&#x79FB;&#x5230;&#x5176;&#x5B83;&#x5907;&#x7528;&#x7684;&#x8282;&#x70B9;&#x4E0A;&#x3002;</p>
+<p>结论：当主节点的数据库服务挂了，pacemaker做的是尝试重启服务；但如果是节点宕机，pacemaker 将主节点转移到其它备用的节点上。</p>
 </blockquote>
-<h4 id="&#x6D4B;&#x8BD5;&#x5916;&#x90E8;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;"><a href="#&#x6D4B;&#x8BD5;&#x5916;&#x90E8;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x5916;&#x90E8;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;"></a>&#x6D4B;&#x8BD5;&#x5916;&#x90E8;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;</h4><p>192.168.0.110 &#x5730;&#x5740;&#x662F;&#x865A;&#x62DF;&#x7684;&#xFF0C;&#x5B83;&#x5176;&#x5B9E;&#x662F;&#x4E3B;&#x8282;&#x70B9;&#x7684; ip &#x5730;&#x5740;&#x3002;&#x5982;&#x679C;&#x4E3B;&#x8282;&#x70B9;&#x5728; 192.168.0.1 &#x4E0A;&#xFF0C;&#x90A3;&#x4E48;192.168.0.110 &#x76F8;&#x5F53;&#x4E8E; 192.168.0.1&#xFF1B;&#x5982;&#x679C;&#x4E3B;&#x8282;&#x70B9;&#x5728; 192.168.0.2 &#x4E0A;&#xFF0C;&#x90A3;&#x4E48;192.168.0.110 &#x76F8;&#x5F53;&#x4E8E; 192.168.0.2&#xFF1B;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7684;&#x597D;&#x5904;&#x662F;&#x89E3;&#x8026;&#xFF0C;&#x5373;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x5B95;&#x673A;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x7BA1;&#x7406;&#x5458;&#x505A;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#xFF0C;&#x53EA;&#x9700;&#x7B49;&#x5F85; Pacemaker &#x5C06;&#x4E3B;&#x8282;&#x70B9;&#x8FC1;&#x79FB;&#x5230;&#x5176;&#x5B83;&#x5907;&#x7528;&#x8282;&#x70B9;&#x5373;&#x53EF;&#x3002;</p>
+<h4 id="测试外部连接数据库"><a href="#测试外部连接数据库" class="headerlink" title="测试外部连接数据库"></a>测试外部连接数据库</h4><p>192.168.0.110 地址是虚拟的，它其实是主节点的 ip 地址。如果主节点在 192.168.0.1 上，那么192.168.0.110 相当于 192.168.0.1；如果主节点在 192.168.0.2 上，那么192.168.0.110 相当于 192.168.0.2；虚拟地址的好处是解耦，即一台服务器宕机并不需要管理员做任何操作，只需等待 Pacemaker 将主节点迁移到其它备用节点即可。</p>
 <blockquote>
 <p>mysql -h 192.168.0.110 -uroot -p</p>
 </blockquote>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/db_connected_successfully.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/db_connected_successfully.jpg" alt="template" class="ui centered image"></a></p>
-<h4 id="&#x6D4B;&#x8BD5;-NFS"><a href="#&#x6D4B;&#x8BD5;-NFS" class="headerlink" title="&#x6D4B;&#x8BD5; NFS"></a>&#x6D4B;&#x8BD5; NFS</h4><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x770B; NFS &#x670D;&#x52A1;&#x8282;&#x70B9;&#x662F;&#x5426;&#x6709;&#x5BF9;&#x5E94;&#x6587;&#x4EF6;&#x5939;</p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/db_connected_successfully.jpg" alt="template"></p>
+<h4 id="测试-NFS"><a href="#测试-NFS" class="headerlink" title="测试 NFS"></a>测试 NFS</h4><p>创建一个数据库，看 NFS 服务节点是否有对应文件夹</p>
 <blockquote>
 <p>create database test;</p>
 </blockquote>
-<p><a class="magnific-img" href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/create_database.jpg"><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/create_database.jpg" alt="template" class="ui centered image"></a></p>
+<p><img src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/create_database.jpg" alt="template"></p>
 
-                        
-                    </div>
-
-                    
-                    
-                    
-
-                    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2019-11-07T02:23:11.000Z" itemprop="datePublished">2019-11-07</time>
-
-    </span>
-    <span class="post-description-item">
-        
-
-    <span>
-        <i class="tags icon"></i>
-    </span>
-
+    </div>
     
-    <span class="ui tiny label">
-        <a href="/tags/OpenStack/">OpenStack</a>
-    </span>
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/12/04/ACL-automitical-configuration/" class="pre-post btn btn-default" title='ACL automitical configuration'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            ACL automitical configuration</span>
+    </a>
+    
+    
+    <a href="/2019/11/02/Device-Agnostic%20Log%20Anomaly%20Classification%20with%20Partial%20Labels/" class="next-post btn btn-default" title='Device-Agnostic Log Anomaly Classification with Partial Labels'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Device-Agnostic Log Anomaly Classification with Partial Labels</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
 
+<div id="comments">
     
 
-    </span>
-</div>
-
-                </div>
-                
-                <div id="pagination" class="nav-web ui text container pagination">
-
-    <div class="ui stackable two column divided grid container">
-        <div class="row">
-            <div class="column nav-left">
-                
-
-                <a href="/2019/12/04/ACL-automitical-configuration/" class="ui tiny button">
-
-                    <i class="angle left icon"></i>
-                    
-                    ACL automitical configuration
-                    
-
-                </a>
-
-                
-            </div>
-            <div class="column nav-right">
-                
-
-                <a href="/2019/11/02/Device-Agnostic%20Log%20Anomaly%20Classification%20with%20Partial%20Labels/" class="ui tiny button">
-                    
-                    Device-Agnostic Log Anomaly Classification with Partial Labels
-                    
-                    <i class="angle right icon"></i></a>
-                
-            </div>
-        </div>
-    </div>
-
-</div>
-                
-            </div>
-
-            
-            <div class="three wide computer three wide tablet column">
-
-                <div class="ui sticky article-toc" id="article-toc">
-                    <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#整体架构"><span>整体架构</span></a></li><li><a href="#MariaDB安装配置-192-168-0-1-192-168-0-2"><span>MariaDB安装配置(192.168.0.1, 192.168.0.2)</span></a></li><li><a href="#NFS-服务端-192-168-0-3"><span>NFS 服务端(192.168.0.3)</span></a></li><li><a href="#MariaDB-节点配置-NFS-192-168-0-1-192-168-0-2"><span>MariaDB 节点配置 NFS(192.168.0.1, 192.168.0.2)</span></a></li><li><a href="#MariaDB-节点配置-Pacemaker-Corosync-192-168-0-1-192-168-0-2"><span>MariaDB 节点配置 Pacemaker+Corosync(192.168.0.1, 192.168.0.2)</span></a></li><li><a href="#测试高可用集群"><span>测试高可用集群</span></a><ol><li><a href="#模拟主节点数据库服务挂了"><span>模拟主节点数据库服务挂了</span></a></li><li><a href="#模拟主节点宕机"><span>模拟主节点宕机</span></a></li><li><a href="#测试外部连接数据库"><span>测试外部连接数据库</span></a></li><li><a href="#测试-NFS"><span>测试 NFS</span></a></li></ol></li></ol>
-                </div>
-
-            </div>
-            
-
-        </div>
-    </div>
-</div>
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2021 <a href="/">二十八度冬</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
-                href="http://hexo.io/" target="_blank">Hexo</a>.
-    </div>
-</div>
-
-    </div>
-
-
-
-
-<!-- scripts list from theme config.yml -->
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#整体架构"><span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MariaDB安装配置-192-168-0-1-192-168-0-2"><span class="toc-text">MariaDB安装配置(192.168.0.1, 192.168.0.2)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NFS-服务端-192-168-0-3"><span class="toc-text">NFS 服务端(192.168.0.3)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MariaDB-节点配置-NFS-192-168-0-1-192-168-0-2"><span class="toc-text">MariaDB 节点配置 NFS(192.168.0.1, 192.168.0.2)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MariaDB-节点配置-Pacemaker-Corosync-192-168-0-1-192-168-0-2"><span class="toc-text">MariaDB 节点配置 Pacemaker+Corosync(192.168.0.1, 192.168.0.2)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试高可用集群"><span class="toc-text">测试高可用集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟主节点数据库服务挂了"><span class="toc-text">模拟主节点数据库服务挂了</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟主节点宕机"><span class="toc-text">模拟主节点宕机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试外部连接数据库"><span class="toc-text">测试外部连接数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试-NFS"><span class="toc-text">测试 NFS</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
 </body>
 </html>

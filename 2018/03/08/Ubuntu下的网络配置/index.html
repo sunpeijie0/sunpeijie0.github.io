@@ -1,301 +1,306 @@
-
-
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns#">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="description" content="null">
-    <title>Ubuntu下的网络配置 | 二十八度冬</title>
 
-    <!-- Open Graph -->
-    <meta name="description" content="&amp;#x7F51;&amp;#x5173; &amp;#x4E3A;&amp;#x4E00;&amp;#x53F0;&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x914D;&amp;#x7F6E;&amp;#x7F51;&amp;#x5173;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x8FD9;&amp;#x53F0;&amp;#x9700;&amp;#x8981;&amp;#x8BBF;&amp;#x95EE;&amp;#x5916;&amp;#x7F51;&amp;#xFF0C;&amp;#x4F1">
-<meta name="keywords" content="hide">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu下的网络配置">
-<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2018&#x2F;03&#x2F;08&#x2F;Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE&#x2F;index.html">
-<meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="&amp;#x7F51;&amp;#x5173; &amp;#x4E3A;&amp;#x4E00;&amp;#x53F0;&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x914D;&amp;#x7F6E;&amp;#x7F51;&amp;#x5173;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x8FD9;&amp;#x53F0;&amp;#x9700;&amp;#x8981;&amp;#x8BBF;&amp;#x95EE;&amp;#x5916;&amp;#x7F51;&amp;#xFF0C;&amp;#x4F1">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2018&#x2F;03&#x2F;08&#x2F;Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE&#x2F;Topology.jpg">
-<meta property="og:updated_time" content="2019-10-10T04:49:18.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2018&#x2F;03&#x2F;08&#x2F;Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE&#x2F;Topology.jpg">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
 
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:",
-  "image": "",
-  "name": "",
-  "url": "https://sunpeijie0.github.io"
-}
-</script>
-    <script>
-    var algoliaEnabled = false;
+<meta name="keywords" content="hide" />
+
+
+<meta name="description" content="
+网关
+为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式
+DNS
+VM配..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
     
-</script>
+    Ubuntu下的网络配置 |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
 
     
 
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
     
-    
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
     
 
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
-
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
-    </div>
-
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
-
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>二十八度冬</h3>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
         </div>
     </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
                 </div>
-                <div class="content">
-                    <a class="header"></a>
-                    
-                        <div class="meta">
-                            Programer / Shutterbug
-                        </div>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
                         
-                        <div class="item">
-                            <i class="marker icon" style="float: left"></i>
-                            <div class="content">Beijing</div>
-                        </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
                         
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
                         
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
                         
-
-                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
-
-                            
-                    </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Ubuntu下的网络配置">
+            
+            Ubuntu下的网络配置
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/hide/" rel="tag">hide</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2018/03/08</span>
+    </span>
+    
+    
 </div>
-
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                1038</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
     
-    
-
-    
-
-    
-    <a href="/index.html" class="item" >
-        <i class="home icon"></i>
-        HOME
-    </a>
-
-    
-
-    
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        <div id="post-Ubuntu下的网络配置" class="ui main container article-type-post">
-
-    
-
-    <div class="ui divided grid">
-
-        <div class="two column row" id="article-content">
-
-            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
-                
-
-<h1 class="ui header">
-    
-    Ubuntu下的网络配置
-</h1>
-
-
-
-                <div class="article-inner">
-
-                    <div class="article-entry" itemprop="articleBody">
-                        
-                        <p><a class="magnific-img" href="/2018/03/08/Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Topology.jpg"><img src="/2018/03/08/Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Topology.jpg" alt="Topology" class="ui centered image"></a></p>
-<h3 id="&#x7F51;&#x5173;"><a href="#&#x7F51;&#x5173;" class="headerlink" title="&#x7F51;&#x5173;"></a>&#x7F51;&#x5173;</h3><blockquote>
-<h4 id="&#x4E3A;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x4F1A;&#x5148;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#xFF1B;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x673A;&#x5668;&#x548C;&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x673A;&#x5668;&#x5904;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7F51;&#x6BB5;&#x5185;&#xFF0C;&#x5219;&#x4E0D;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#x3002;Traceroute&#x662F;Linux&#x4E0B;&#x8FFD;&#x8E2A;ip&#x5730;&#x5740;&#x7684;&#x597D;&#x65B9;&#x5F0F;"><a href="#&#x4E3A;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x4F1A;&#x5148;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#xFF1B;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x673A;&#x5668;&#x548C;&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x673A;&#x5668;&#x5904;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7F51;&#x6BB5;&#x5185;&#xFF0C;&#x5219;&#x4E0D;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#x3002;Traceroute&#x662F;Linux&#x4E0B;&#x8FFD;&#x8E2A;ip&#x5730;&#x5740;&#x7684;&#x597D;&#x65B9;&#x5F0F;" class="headerlink" title="&#x4E3A;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x4F1A;&#x5148;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#xFF1B;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x673A;&#x5668;&#x548C;&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x673A;&#x5668;&#x5904;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7F51;&#x6BB5;&#x5185;&#xFF0C;&#x5219;&#x4E0D;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#x3002;Traceroute&#x662F;Linux&#x4E0B;&#x8FFD;&#x8E2A;ip&#x5730;&#x5740;&#x7684;&#x597D;&#x65B9;&#x5F0F;"></a>&#x4E3A;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x4F1A;&#x5148;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#xFF1B;&#x5982;&#x679C;&#x8FD9;&#x53F0;&#x673A;&#x5668;&#x548C;&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x673A;&#x5668;&#x5904;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7F51;&#x6BB5;&#x5185;&#xFF0C;&#x5219;&#x4E0D;&#x7ECF;&#x8FC7;&#x7F51;&#x5173;&#x3002;Traceroute&#x662F;Linux&#x4E0B;&#x8FFD;&#x8E2A;ip&#x5730;&#x5740;&#x7684;&#x597D;&#x65B9;&#x5F0F;</h4></blockquote>
+    <div class="post-body post-content">
+        <p><img src="/2018/03/08/Ubuntu%E4%B8%8B%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Topology.jpg" alt="Topology"></p>
+<h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><blockquote>
+<h4 id="为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式"><a href="#为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式" class="headerlink" title="为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式"></a>为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式</h4></blockquote>
 <h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><blockquote>
-<h4 id="VM&#x914D;&#x7F6E;&#x4E3A;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x603B;&#x662F;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x5916;&#x7F51;&#xFF0C;ping-baidu-com&#x4E0D;&#x901A;&#xFF0C;&#x8FD8;&#x9700;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#x3002;"><a href="#VM&#x914D;&#x7F6E;&#x4E3A;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x603B;&#x662F;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x5916;&#x7F51;&#xFF0C;ping-baidu-com&#x4E0D;&#x901A;&#xFF0C;&#x8FD8;&#x9700;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#x3002;" class="headerlink" title="VM&#x914D;&#x7F6E;&#x4E3A;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x603B;&#x662F;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x5916;&#x7F51;&#xFF0C;ping baidu.com&#x4E0D;&#x901A;&#xFF0C;&#x8FD8;&#x9700;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#x3002;"></a>VM&#x914D;&#x7F6E;&#x4E3A;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x603B;&#x662F;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x5916;&#x7F51;&#xFF0C;ping baidu.com&#x4E0D;&#x901A;&#xFF0C;&#x8FD8;&#x9700;&#x914D;&#x7F6E;&#x7F51;&#x5173;&#x3002;</h4><ul class="ui list">
-<li><h5 id="vim-etc-resolvconf-resolv-conf-d-base-&#x6DFB;&#x52A0;&#x4E00;&#x884C;nameserver-8-8-8-8"><a href="#vim-etc-resolvconf-resolv-conf-d-base-&#x6DFB;&#x52A0;&#x4E00;&#x884C;nameserver-8-8-8-8" class="headerlink" title="vim /etc/resolvconf/resolv.conf.d/base &#x6DFB;&#x52A0;&#x4E00;&#x884C;nameserver 8.8.8.8"></a>vim /etc/resolvconf/resolv.conf.d/base &#x6DFB;&#x52A0;&#x4E00;&#x884C;nameserver 8.8.8.8</h5></li>
-<li><h5 id="sudo-etc-init-d-resolvconf-restart-&#x4F7F;DNS&#x751F;&#x6548;"><a href="#sudo-etc-init-d-resolvconf-restart-&#x4F7F;DNS&#x751F;&#x6548;" class="headerlink" title="sudo /etc/init.d/resolvconf restart &#x4F7F;DNS&#x751F;&#x6548;"></a>sudo /etc/init.d/resolvconf restart &#x4F7F;DNS&#x751F;&#x6548;</h5></li>
+<h4 id="VM配置为桥接模式，但总是访问不了外网，ping-baidu-com不通，还需配置网关。"><a href="#VM配置为桥接模式，但总是访问不了外网，ping-baidu-com不通，还需配置网关。" class="headerlink" title="VM配置为桥接模式，但总是访问不了外网，ping baidu.com不通，还需配置网关。"></a>VM配置为桥接模式，但总是访问不了外网，ping baidu.com不通，还需配置网关。</h4><ul>
+<li><h5 id="vim-etc-resolvconf-resolv-conf-d-base-添加一行nameserver-8-8-8-8"><a href="#vim-etc-resolvconf-resolv-conf-d-base-添加一行nameserver-8-8-8-8" class="headerlink" title="vim /etc/resolvconf/resolv.conf.d/base 添加一行nameserver 8.8.8.8"></a>vim /etc/resolvconf/resolv.conf.d/base 添加一行nameserver 8.8.8.8</h5></li>
+<li><h5 id="sudo-etc-init-d-resolvconf-restart-使DNS生效"><a href="#sudo-etc-init-d-resolvconf-restart-使DNS生效" class="headerlink" title="sudo /etc/init.d/resolvconf restart 使DNS生效"></a>sudo /etc/init.d/resolvconf restart 使DNS生效</h5></li>
 </ul>
 </blockquote>
-<h3 id="&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x914D;&#x7F6E;"><a href="#&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x914D;&#x7F6E;" class="headerlink" title="&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x914D;&#x7F6E;"></a>&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x914D;&#x7F6E;</h3><blockquote>
-<h5 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;-etc-network-interfaces"><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;-etc-network-interfaces" class="headerlink" title="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;  /etc/network/interfaces"></a>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;  /etc/network/interfaces</h5></blockquote>
+<h3 id="网络接口配置"><a href="#网络接口配置" class="headerlink" title="网络接口配置"></a>网络接口配置</h3><blockquote>
+<h5 id="配置文件位于-etc-network-interfaces"><a href="#配置文件位于-etc-network-interfaces" class="headerlink" title="配置文件位于  /etc/network/interfaces"></a>配置文件位于  /etc/network/interfaces</h5></blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line">auto ens33</span><br><span class="line">iface ens33 inet static</span><br><span class="line">address 192.168.1.51</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 192.168.1.1</span><br><span class="line">auto ens38</span><br><span class="line">iface ens38 inet static</span><br><span class="line">address 192.168.220.129</span><br><span class="line">netmask 255.255.255.0</span><br></pre></td></tr></table></figure>
 
-                        
-                    </div>
-
-                    
-                    
-                    
-
-                    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-03-08T13:17:54.000Z" itemprop="datePublished">2018-03-08</time>
-
-    </span>
-    <span class="post-description-item">
-        
-
-    <span>
-        <i class="tags icon"></i>
-    </span>
-
+    </div>
     
-    <span class="ui tiny label">
-        <a href="/tags/hide/">hide</a>
-    </span>
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/" class="pre-post btn btn-default" title='Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS</span>
+    </a>
+    
+    
+</div>
 
+<div id="comments">
     
 
-    </span>
-</div>
-
-                </div>
-                
-                <div id="pagination" class="nav-web ui text container pagination">
-
-    <div class="ui stackable two column divided grid container">
-        <div class="row">
-            <div class="column nav-left">
-                
-
-                <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/" class="ui tiny button">
-
-                    <i class="angle left icon"></i>
-                    
-                    Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS
-                    
-
-                </a>
-
-                
-            </div>
-            <div class="column nav-right">
-                
-
-                <a class="ui tiny button disabled">Next<i class="angle right icon"></i></a>
-
-                
-            </div>
-        </div>
-    </div>
-
-</div>
-                
-            </div>
-
-            
-            <div class="three wide computer three wide tablet column">
-
-                <div class="ui sticky article-toc" id="article-toc">
-                    <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#网关"><span>网关</span></a><ol><li><a href="#为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式"><span>为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式</span></a></li></ol></li><li><a href="#DNS"><span>DNS</span></a><ol><li><a href="#VM配置为桥接模式，但总是访问不了外网，ping-baidu-com不通，还需配置网关。"><span>VM配置为桥接模式，但总是访问不了外网，ping baidu.com不通，还需配置网关。</span></a><ol><li><a href="#vim-etc-resolvconf-resolv-conf-d-base-添加一行nameserver-8-8-8-8"><span>vim /etc/resolvconf/resolv.conf.d/base 添加一行nameserver 8.8.8.8</span></a></li><li><a href="#sudo-etc-init-d-resolvconf-restart-使DNS生效"><span>sudo /etc/init.d/resolvconf restart 使DNS生效</span></a></li></ol></li></ol></li><li><a href="#网络接口配置"><span>网络接口配置</span></a><ol><li><a href="#配置文件位于-etc-network-interfaces"><span>配置文件位于  /etc/network/interfaces</span></a></li></ol></li></ol></li></ol>
-                </div>
-
-            </div>
-            
-
-        </div>
-    </div>
-</div>
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2021 <a href="/">二十八度冬</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
-                href="http://hexo.io/" target="_blank">Hexo</a>.
-    </div>
-</div>
-
-    </div>
-
-
-
-
-<!-- scripts list from theme config.yml -->
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#网关"><span class="toc-text">网关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式"><span class="toc-text">为一台服务器配置网关，如果这台需要访问外网，会先经过网关；如果这台机器和要访问的机器处在同一个网段内，则不经过网关。Traceroute是Linux下追踪ip地址的好方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#VM配置为桥接模式，但总是访问不了外网，ping-baidu-com不通，还需配置网关。"><span class="toc-text">VM配置为桥接模式，但总是访问不了外网，ping baidu.com不通，还需配置网关。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#vim-etc-resolvconf-resolv-conf-d-base-添加一行nameserver-8-8-8-8"><span class="toc-text">vim /etc/resolvconf/resolv.conf.d/base 添加一行nameserver 8.8.8.8</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sudo-etc-init-d-resolvconf-restart-使DNS生效"><span class="toc-text">sudo /etc/init.d/resolvconf restart 使DNS生效</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络接口配置"><span class="toc-text">网络接口配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#配置文件位于-etc-network-interfaces"><span class="toc-text">配置文件位于  /etc/network/interfaces</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
 </body>
 </html>

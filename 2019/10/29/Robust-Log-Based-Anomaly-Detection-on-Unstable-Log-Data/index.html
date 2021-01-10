@@ -1,327 +1,334 @@
-
-
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns#">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="description" content="null">
-    <title>Robust Log-Based Anomaly Detection on Unstable Log Data | 二十八度冬</title>
 
-    <!-- Open Graph -->
-    <meta name="description" content="Log Parsing&amp;#x4F7F;&amp;#x7528; Drain&amp;#xFF0C;&amp;#x5C06;&amp;#x65E5;&amp;#x5FD7;&amp;#x6D88;&amp;#x606F;&amp;#x8F6C;&amp;#x5316;&amp;#x4E3A;&amp;#x65E5;&amp;#x5FD7;&amp;#x4E8B;&amp;#x4EF6;&amp;#x3002;  Semantic Vectorization&amp;#x5C06;&amp;#x6BCF;&amp;#x4E2A;&amp;#x65E5">
-<meta name="keywords" content="Paper Notes">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Robust Log-Based Anomaly Detection on Unstable Log Data">
-<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;29&#x2F;Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data&#x2F;index.html">
-<meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="Log Parsing&amp;#x4F7F;&amp;#x7528; Drain&amp;#xFF0C;&amp;#x5C06;&amp;#x65E5;&amp;#x5FD7;&amp;#x6D88;&amp;#x606F;&amp;#x8F6C;&amp;#x5316;&amp;#x4E3A;&amp;#x65E5;&amp;#x5FD7;&amp;#x4E8B;&amp;#x4EF6;&amp;#x3002;  Semantic Vectorization&amp;#x5C06;&amp;#x6BCF;&amp;#x4E2A;&amp;#x65E5">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;29&#x2F;Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data&#x2F;neuron_network.jpg">
-<meta property="og:updated_time" content="2019-10-30T02:16:52.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;29&#x2F;Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data&#x2F;neuron_network.jpg">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
 
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:",
-  "image": "",
-  "name": "",
-  "url": "https://sunpeijie0.github.io"
-}
-</script>
-    <script>
-    var algoliaEnabled = false;
+<meta name="keywords" content="Paper Notes" />
+
+
+<meta name="description" content="Log Parsing使用 Drain，将日志消息转化为日志事件。
+
+Semantic Vectorization将每个日志事件转化为一个固定维度的向量。
+日志事件预处理$E = [t_1,t_..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
     
-</script>
+    Robust Log-Based Anomaly Detection on Unstable Log Data |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
 
     
 
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
     
-    
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
     
 
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
-
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
-    </div>
-
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
-
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>二十八度冬</h3>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
         </div>
     </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
                 </div>
-                <div class="content">
-                    <a class="header"></a>
-                    
-                        <div class="meta">
-                            Programer / Shutterbug
-                        </div>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
                         
-                        <div class="item">
-                            <i class="marker icon" style="float: left"></i>
-                            <div class="content">Beijing</div>
-                        </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
                         
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
                         
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
                         
-
-                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
-
-                            
-                    </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Robust Log-Based Anomaly Detection on Unstable Log Data">
+            
+            Robust Log-Based Anomaly Detection on Unstable Log Data
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Paper-Notes/" rel="tag">Paper Notes</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2019/10/29</span>
+    </span>
+    
+    
 </div>
-
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                439</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
     
-    
-
-    
-
-    
-    <a href="/index.html" class="item" >
-        <i class="home icon"></i>
-        HOME
-    </a>
-
-    
-
-    
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        <div id="post-Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data" class="ui main container article-type-post">
-
-    
-
-    <div class="ui divided grid">
-
-        <div class="two column row" id="article-content">
-
-            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
-                
-
-<h1 class="ui header">
-    
-    Robust Log-Based Anomaly Detection on Unstable Log Data
-</h1>
-
-
-
-                <div class="article-inner">
-
-                    <div class="article-entry" itemprop="articleBody">
-                        
-                        <h3 id="Log-Parsing"><a href="#Log-Parsing" class="headerlink" title="Log Parsing"></a>Log Parsing</h3><p>&#x4F7F;&#x7528; Drain&#xFF0C;&#x5C06;&#x65E5;&#x5FD7;&#x6D88;&#x606F;&#x8F6C;&#x5316;&#x4E3A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x3002;</p>
+    <div class="post-body post-content">
+        <h3 id="Log-Parsing"><a href="#Log-Parsing" class="headerlink" title="Log Parsing"></a>Log Parsing</h3><p>使用 Drain，将日志消息转化为日志事件。</p>
 <hr>
-<h3 id="Semantic-Vectorization"><a href="#Semantic-Vectorization" class="headerlink" title="Semantic Vectorization"></a>Semantic Vectorization</h3><p>&#x5C06;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x8F6C;&#x5316;&#x4E3A;&#x4E00;&#x4E2A;&#x56FA;&#x5B9A;&#x7EF4;&#x5EA6;&#x7684;&#x5411;&#x91CF;&#x3002;</p>
-<h4 id="&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x9884;&#x5904;&#x7406;"><a href="#&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x9884;&#x5904;&#x7406;" class="headerlink" title="&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x9884;&#x5904;&#x7406;"></a>&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x9884;&#x5904;&#x7406;</h4><p>$E = [t_1,t_2,&#x2026;t_N]$ &#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#xFF0C;$t_i$ &#x4EE3;&#x8868;&#x8BE5;&#x4E8B;&#x4EF6;&#x4E2D;&#x7684;&#x4E00;&#x4E2A; token&#xFF0C;$N$ &#x662F;&#x4E8B;&#x4EF6;&#x7684;&#x957F;&#x5EA6;&#x3002;</p>
-<ul class="ui list">
-<li><p>&#x9996;&#x5148;&#x53BB;&#x9664;&#x4E8B;&#x4EF6;&#x4E2D;&#x7684;&#x975E;&#x7B26;&#x53F7; token&#xFF0C;&#x6BD4;&#x5982;&#x5B9A;&#x754C;&#x7B26;&#xFF0C;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#xFF0C;&#x6570;&#x5B57;&#x4F4D;&#x6570;&#x3002; </p>
+<h3 id="Semantic-Vectorization"><a href="#Semantic-Vectorization" class="headerlink" title="Semantic Vectorization"></a>Semantic Vectorization</h3><p>将每个日志事件转化为一个固定维度的向量。</p>
+<h4 id="日志事件预处理"><a href="#日志事件预处理" class="headerlink" title="日志事件预处理"></a>日志事件预处理</h4><p>$E = [t_1,t_2,…t_N]$ 代表一个日志事件，$t_i$ 代表该事件中的一个 token，$N$ 是事件的长度。</p>
+<ul>
+<li><p>首先去除事件中的非符号 token，比如定界符，操作符，标点符号，数字位数。 </p>
 </li>
-<li><p>&#x53BB;&#x6389;&#x505C;&#x7528;&#x8BCD; &#x201C;a&#x201D;, &#x201C;the&#x201D;, etc.</p>
+<li><p>去掉停用词 “a”, “the”, etc.</p>
 </li>
-<li><p>&#x6709;&#x4E9B; token &#x5305;&#x542B;&#x4E24;&#x4E2A;&#x5355;&#x8BCD;&#xFF0C;&#x53C2;&#x8003;&#x9A7C;&#x5CF0;&#x547D;&#x540D;&#xFF0C;&#x5C06; token &#x5206;&#x5F00;</p>
-</li>
-</ul>
-<h4 id="&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x5316;"><a href="#&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x5316;" class="headerlink" title="&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x5316;"></a>&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x5316;</h4><ul class="ui list">
-<li><p>&#x8981;&#x6C42;&#x4E24;&#x4E2A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x8BED;&#x4E49;&#x5411;&#x91CF;&#x5E94;&#x8BE5;&#x4E0D;&#x4E00;&#x6837;</p>
-</li>
-<li><p>&#x76F8;&#x4F3C;&#x8BED;&#x4E49;&#x7684;&#x4E8B;&#x4EF6;&#x5E94;&#x8BE5;&#x7528;&#x76F8;&#x4F3C;&#x7684;&#x5411;&#x91CF;&#x8868;&#x793A;</p>
+<li><p>有些 token 包含两个单词，参考驼峰命名，将 token 分开</p>
 </li>
 </ul>
-<p>&#x4F7F;&#x7528; FastText &#x7B97;&#x6CD5;&#xFF0C;&#x4ECE;&#x5355;&#x8BCD;&#x91CC;&#x63D0;&#x53D6;&#x8BED;&#x4E49;&#x4FE1;&#x606F;&#xFF0C;&#x9AD8;&#x6548;&#x5730;&#x6355;&#x6349;&#x5355;&#x8BCD;&#x95F4;&#x7684;&#x5185;&#x90E8;&#x8054;&#x7CFB;&#xFF0C;&#x5C06;&#x6BCF;&#x4E2A;&#x5355;&#x8BCD;&#x8F6C;&#x6362;&#x6210;&#x4E00;&#x4E2A; d &#x7EF4;&#x7684;&#x5411;&#x91CF;&#xFF0C;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x662F;&#x4E00;&#x4E2A;&#x5411;&#x91CF;&#x5217;&#x8868; $L = [v_1,v_2,&#x2026;v_N]$&#xFF0C;$v_i$ &#x662F;&#x7B2C; $i$ &#x4E2A;&#x5355;&#x8BCD;&#x5411;&#x91CF;&#xFF0C;$N$ &#x662F;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6; tokens &#x7684;&#x4E2A;&#x6570;&#x3002;</p>
-<h4 id="TF-IDF-&#x805A;&#x5408;"><a href="#TF-IDF-&#x805A;&#x5408;" class="headerlink" title="TF-IDF &#x805A;&#x5408;"></a>TF-IDF &#x805A;&#x5408;</h4><p>&#x57FA;&#x4E8E;&#x8FD9;&#x6837;&#x7684;&#x4E8B;&#x5B9E;&#xFF1A;&#x5982;&#x679C;&#x5728;&#x4E00;&#x6761;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x4E2D; token &#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#x8D8A;&#x591A;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x8D8A;&#x6709;&#x4EE3;&#x8868;&#x6027;&#x3002;$#word$ &#x662F;&#x4E00;&#x6761;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x4E2D;&#x76EE;&#x6807;&#x5355;&#x8BCD;&#x7684;&#x6570;&#x91CF;&#xFF0C;$#total$ &#x662F;&#x4E00;&#x6761;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x4E2D;&#x5355;&#x8BCD;&#x7684;&#x603B;&#x6570;&#x3002; </p>
+<h4 id="单词向量化"><a href="#单词向量化" class="headerlink" title="单词向量化"></a>单词向量化</h4><ul>
+<li><p>要求两个日志事件对应的语义向量应该不一样</p>
+</li>
+<li><p>相似语义的事件应该用相似的向量表示</p>
+</li>
+</ul>
+<p>使用 FastText 算法，从单词里提取语义信息，高效地捕捉单词间的内部联系，将每个单词转换成一个 d 维的向量，每个日志事件是一个向量列表 $L = [v_1,v_2,…v_N]$，$v_i$ 是第 $i$ 个单词向量，$N$ 是日志事件 tokens 的个数。</p>
+<h4 id="TF-IDF-聚合"><a href="#TF-IDF-聚合" class="headerlink" title="TF-IDF 聚合"></a>TF-IDF 聚合</h4><p>基于这样的事实：如果在一条日志事件中 token 出现的次数越多，那么它越有代表性。$#word$ 是一条日志事件中目标单词的数量，$#total$ 是一条日志事件中单词的总数。 </p>
 <script type="math/tex; mode=display">
- TF(word) = \frac{\#word}{\#total}</script><p>&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A; token &#x5728;&#x5F88;&#x591A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x4E2D;&#x51FA;&#x73B0;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C31;&#x592A;&#x901A;&#x7528;&#x4E86;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x5F88;&#x597D;&#x5730;&#x5206;&#x8FA8;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#xFF0C;&#x8FD9;&#x65F6;&#xFF0C;&#x5E94;&#x8BE5;&#x964D;&#x4F4E;&#x8FD9;&#x4E2A;&#x5355;&#x8BCD;&#x7684;&#x6743;&#x91CD;&#x3002;$#L$ &#x662F;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x7684;&#x603B;&#x6570;&#xFF0C;$#L{word}$ &#x662F;&#x5305;&#x542B;&#x5355;&#x8BCD;&#x7684;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x6570;&#x91CF;&#x3002;</p>
+ TF(word) = \frac{\#word}{\#total}</script><p>另一方面，如果某个 token 在很多日志事件中出现，那么它就太通用了，而不能很好地分辨日志事件，这时，应该降低这个单词的权重。$#L$ 是日志事件的总数，$#L{word}$ 是包含单词的日志事件数量。</p>
 <script type="math/tex; mode=display">
-IDF(word) = log(\frac{\#L}{\#L_{word}})</script><p>&#x4F7F;&#x7528;  $TF \times IDF$ &#x4EE3;&#x8868;&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x7684;&#x6743;&#x91CD;&#xFF0C;&#x6700;&#x7EC8;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x7684;&#x6743;&#x91CD;&#x662F;&#x5BF9;&#x6240;&#x6709;&#x5355;&#x8BCD;&#x5411;&#x91CF;&#x52A0;&#x6743;&#x5E73;&#x5747;&#x3002;$V\in R^d$</p>
+IDF(word) = log(\frac{\#L}{\#L_{word}})</script><p>使用  $TF \times IDF$ 代表单词向量的权重，最终日志事件的权重是对所有单词向量加权平均。$V\in R^d$</p>
 <script type="math/tex; mode=display">
 V = \frac{1}{N}\sum_{i=1}^N w_i\cdot v_i</script><hr>
-<h3 id="&#x57FA;&#x4E8E;Attention&#x7684;&#x5206;&#x7C7B;"><a href="#&#x57FA;&#x4E8E;Attention&#x7684;&#x5206;&#x7C7B;" class="headerlink" title="&#x57FA;&#x4E8E;Attention&#x7684;&#x5206;&#x7C7B;"></a>&#x57FA;&#x4E8E;Attention&#x7684;&#x5206;&#x7C7B;</h3><p>&#x4EE5;&#x4E0A;&#x5DF2;&#x7ECF;&#x628A;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x8F6C;&#x5316;&#x6210;&#x4E00;&#x4E2A; d &#x7EF4;&#x7684;&#x8BED;&#x4E49;&#x5411;&#x91CF; $V$&#xFF0C;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x5E8F;&#x5217;&#x7528;&#x8BED;&#x4E49;&#x5411;&#x91CF;&#x5E8F;&#x5217;&#x8868;&#x793A; $[V_1,V_2,&#x2026;V_T]$&#x3002;</p>
-<p>&#x8F93;&#x5165;&#x662F;&#x8BED;&#x4E49;&#x5411;&#x91CF;&#x5E8F;&#x5217;&#xFF0C;LogRobust &#x91C7;&#x7528;&#x57FA;&#x4E8E; Attention &#x7684; Bi-LSTM &#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x6765;&#x5BF9;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#x65E5;&#x5FD7;&#x5E8F;&#x5217;&#x8FDB;&#x884C;&#x5F02;&#x5E38;&#x68C0;&#x6D4B;&#x3002;</p>
-<p><a class="magnific-img" href="/2019/10/29/Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data/neuron_network.jpg"><img src="/2019/10/29/Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data/neuron_network.jpg" alt="template" class="ui centered image"></a></p>
-<p>&#x56E0;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x5BF9;&#x5206;&#x7C7B;&#x7ED3;&#x679C;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x5F15;&#x5165; attention &#x673A;&#x5236;&#x5230; Bi-LSTM&#xFF0C;&#x7528;&#x6765;&#x8D4B;&#x4E88;&#x65E5;&#x5FD7;&#x4E8B;&#x4EF6;&#x4E0D;&#x540C;&#x7684;&#x6743;&#x91CD;&#x3002;</p>
+<h3 id="基于Attention的分类"><a href="#基于Attention的分类" class="headerlink" title="基于Attention的分类"></a>基于Attention的分类</h3><p>以上已经把每个日志事件转化成一个 d 维的语义向量 $V$，每个日志序列用语义向量序列表示 $[V_1,V_2,…V_T]$。</p>
+<p>输入是语义向量序列，LogRobust 采用基于 Attention 的 Bi-LSTM 神经网络来对不稳定的日志序列进行异常检测。</p>
+<p><img src="/2019/10/29/Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data/neuron_network.jpg" alt="template"></p>
+<p>因为不同的日志事件对分类结果有不同的影响，引入 attention 机制到 Bi-LSTM，用来赋予日志事件不同的权重。</p>
 <script type="math/tex; mode=display">
-\alpha_t = tanh(W^{\alpha}_t \cdot h_t)</script><p>&#x5176;&#x4E2D; $W^\alpha _t$ &#x4EE3;&#x8868;&#x5728;&#x65F6;&#x95F4; t &#x7684; attention &#x6743;&#x91CD;&#x3002;</p>
+\alpha_t = tanh(W^{\alpha}_t \cdot h_t)</script><p>其中 $W^\alpha _t$ 代表在时间 t 的 attention 权重。</p>
 <script type="math/tex; mode=display">
-pred = softmax(W\cdot(\sum_{t=0}^{t=T}\alpha_t\cdot h_t))</script><p>&#x8BA1;&#x7B97;&#x51FA;&#x6765;&#x7684;&#x4EA4;&#x53C9;&#x71B5;&#x4F5C;&#x4E3A;&#x635F;&#x5931;&#x51FD;&#x6570;&#xFF0C;&#x4F18;&#x5316;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7B97;&#x6CD5;&#xFF0C;&#x7528;&#x6765;&#x8BAD;&#x7EC3;&#x6A21;&#x578B;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
-<p>&#x9884;&#x6D4B;&#x8BD5;&#x65F6;&#xFF0C;&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x5E8F;&#x5217;&#xFF0C;&#x80FD;&#x591F;&#x5224;&#x65AD;&#x8BE5;&#x5E8F;&#x5217;&#x662F;&#x4E0D;&#x662F;&#x5F02;&#x5E38;&#x7684;&#x3002;</p>
+pred = softmax(W\cdot(\sum_{t=0}^{t=T}\alpha_t\cdot h_t))</script><p>计算出来的交叉熵作为损失函数，优化随机梯度下降算法，用来训练模型的参数。</p>
+<p>预测试时，给定一个序列，能够判断该序列是不是异常的。</p>
 
-                        
-                    </div>
-
-                    
-                    
-                    
-
-                    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2019-10-29T07:47:15.000Z" itemprop="datePublished">2019-10-29</time>
-
-    </span>
-    <span class="post-description-item">
-        
-
-    <span>
-        <i class="tags icon"></i>
-    </span>
-
+    </div>
     
-    <span class="ui tiny label">
-        <a href="/tags/Paper-Notes/">Paper Notes</a>
-    </span>
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/" class="pre-post btn btn-default" title='LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs</span>
+    </a>
+    
+    
+    <a href="/2019/10/14/MariaDB-Corosync-Pacemaker-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="next-post btn btn-default" title='MariaDB+Galera+Corosync+Pacemaker 高可用环境搭建'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            MariaDB+Galera+Corosync+Pacemaker 高可用环境搭建</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
 
+<div id="comments">
     
 
-    </span>
-</div>
-
-                </div>
-                
-                <div id="pagination" class="nav-web ui text container pagination">
-
-    <div class="ui stackable two column divided grid container">
-        <div class="row">
-            <div class="column nav-left">
-                
-
-                <a href="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/" class="ui tiny button">
-
-                    <i class="angle left icon"></i>
-                    
-                    LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs
-                    
-
-                </a>
-
-                
-            </div>
-            <div class="column nav-right">
-                
-
-                <a href="/2019/10/14/MariaDB-Corosync-Pacemaker-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="ui tiny button">
-                    
-                    MariaDB+Galera+Corosync+Pacemaker 高可用环境搭建
-                    
-                    <i class="angle right icon"></i></a>
-                
-            </div>
-        </div>
-    </div>
-
-</div>
-                
-            </div>
-
-            
-            <div class="three wide computer three wide tablet column">
-
-                <div class="ui sticky article-toc" id="article-toc">
-                    <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#Log-Parsing"><span>Log Parsing</span></a></li><li><a href="#Semantic-Vectorization"><span>Semantic Vectorization</span></a><ol><li><a href="#日志事件预处理"><span>日志事件预处理</span></a></li><li><a href="#单词向量化"><span>单词向量化</span></a></li><li><a href="#TF-IDF-聚合"><span>TF-IDF 聚合</span></a></li></ol></li><li><a href="#基于Attention的分类"><span>基于Attention的分类</span></a></li></ol>
-                </div>
-
-            </div>
-            
-
-        </div>
-    </div>
-</div>
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2021 <a href="/">二十八度冬</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
-                href="http://hexo.io/" target="_blank">Hexo</a>.
-    </div>
-</div>
-
-    </div>
-
-
-
-
-<!-- scripts list from theme config.yml -->
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Log-Parsing"><span class="toc-text">Log Parsing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Semantic-Vectorization"><span class="toc-text">Semantic Vectorization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#日志事件预处理"><span class="toc-text">日志事件预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单词向量化"><span class="toc-text">单词向量化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF-IDF-聚合"><span class="toc-text">TF-IDF 聚合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于Attention的分类"><span class="toc-text">基于Attention的分类</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
 </body>
 </html>

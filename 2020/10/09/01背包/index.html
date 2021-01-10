@@ -1,324 +1,328 @@
-
-
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns#">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <meta name="description" content="null">
-    <title>01背包 | 二十八度冬</title>
 
-    <!-- Open Graph -->
-    <meta name="description" content="01&amp;#x80CC;&amp;#x5305;&amp;#x72B6;&amp;#x6001;&amp;#x8868;&amp;#x793A;$f[i][j]$ &amp;#x8868;&amp;#x793A;&amp;#x53EA;&amp;#x770B;&amp;#x524D; $i$ &amp;#x4EF6;&amp;#x7269;&amp;#x54C1;&amp;#xFF0C;&amp;#x603B;&amp;#x4F53;&amp;#x79EF;&amp;#x662F; $j$ &amp;#x7684; &amp;#x60C5;&amp;#x51B5;&amp;">
-<meta name="keywords" content="hide">
-<meta property="og:type" content="article">
-<meta property="og:title" content="01背包">
-<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2020&#x2F;10&#x2F;09&#x2F;01%E8%83%8C%E5%8C%85&#x2F;index.html">
-<meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="01&amp;#x80CC;&amp;#x5305;&amp;#x72B6;&amp;#x6001;&amp;#x8868;&amp;#x793A;$f[i][j]$ &amp;#x8868;&amp;#x793A;&amp;#x53EA;&amp;#x770B;&amp;#x524D; $i$ &amp;#x4EF6;&amp;#x7269;&amp;#x54C1;&amp;#xFF0C;&amp;#x603B;&amp;#x4F53;&amp;#x79EF;&amp;#x662F; $j$ &amp;#x7684; &amp;#x60C5;&amp;#x51B5;&amp;">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-12-26T07:55:13.704Z">
-<meta name="twitter:card" content="summary">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
 
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:",
-  "image": "",
-  "name": "",
-  "url": "https://sunpeijie0.github.io"
-}
-</script>
-    <script>
-    var algoliaEnabled = false;
+<meta name="keywords" content="hide" />
+
+
+<meta name="description" content="01背包状态表示$f[i][j]$ 表示只看前 $i$ 件物品，总体积是 $j$ 的 情况下，总价值最大是多少
+$result=max(f[n][0\sim V])$
+$f[i][j]:$
+
+不..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
     
-</script>
+    01背包 |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
 
     
 
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
     
-    
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
     
 
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
-
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
-    </div>
-
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
-
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>二十八度冬</h3>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
         </div>
     </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
                 </div>
-                <div class="content">
-                    <a class="header"></a>
-                    
-                        <div class="meta">
-                            Programer / Shutterbug
-                        </div>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
                         
-                        <div class="item">
-                            <i class="marker icon" style="float: left"></i>
-                            <div class="content">Beijing</div>
-                        </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
                         
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
                         
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
                         
-
-                                <a href="https://github.com/sunpeijie0" target="_blank" rel="noopener"><i class="large github icon" style="float: left"></i></a>
-
-                            
-                    </div>
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="01背包">
+            
+            01背包
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/hide/" rel="tag">hide</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/10/09</span>
+    </span>
+    
+    
 </div>
-
+        
+        
+    </div>
     
-    
-
-    
-
-    
-    <a href="/index.html" class="item" >
-        <i class="home icon"></i>
-        HOME
-    </a>
-
-    
-
-    
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        <div id="post-01背包" class="ui main container article-type-post">
-
-    
-
-    <div class="ui divided grid">
-
-        <div class="two column row" id="article-content">
-
-            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
-                
-
-<h1 class="ui header">
-    
-    01背包
-</h1>
-
-
-
-                <div class="article-inner">
-
-                    <div class="article-entry" itemprop="articleBody">
-                        
-                        <h2 id="01&#x80CC;&#x5305;"><a href="#01&#x80CC;&#x5305;" class="headerlink" title="01&#x80CC;&#x5305;"></a>01&#x80CC;&#x5305;</h2><h3 id="&#x72B6;&#x6001;&#x8868;&#x793A;"><a href="#&#x72B6;&#x6001;&#x8868;&#x793A;" class="headerlink" title="&#x72B6;&#x6001;&#x8868;&#x793A;"></a>&#x72B6;&#x6001;&#x8868;&#x793A;</h3><p>$f[i][j]$ &#x8868;&#x793A;&#x53EA;&#x770B;&#x524D; $i$ &#x4EF6;&#x7269;&#x54C1;&#xFF0C;&#x603B;&#x4F53;&#x79EF;&#x662F; $j$ &#x7684; &#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x603B;&#x4EF7;&#x503C;&#x6700;&#x5927;&#x662F;&#x591A;&#x5C11;</p>
+    <div class="post-body post-content">
+        <h2 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h2><h3 id="状态表示"><a href="#状态表示" class="headerlink" title="状态表示"></a>状态表示</h3><p>$f[i][j]$ 表示只看前 $i$ 件物品，总体积是 $j$ 的 情况下，总价值最大是多少</p>
 <p>$result=max(f[n][0\sim V])$</p>
 <p>$f[i][j]:$</p>
-<ol class="ui list">
-<li><p>&#x4E0D;&#x9009;&#x7B2C; $i$ &#x4E2A;&#x7269;&#x54C1;&#xFF0C;$f[i][j]=f[i-1][j]$</p>
+<ol>
+<li><p>不选第 $i$ 个物品，$f[i][j]=f[i-1][j]$</p>
 </li>
-<li><p>&#x9009;&#x7B2C; $i$ &#x4E2A;&#x7269;&#x54C1;&#xFF0C;$f[i][j] = f[i-1][j-v[i]]$</p>
+<li><p>选第 $i$ 个物品，$f[i][j] = f[i-1][j-v[i]]$</p>
 </li>
 </ol>
 <p>$f[i][j]=max(1., 2.)$ </p>
-<h3 id="&#x521D;&#x59CB;&#x5316;"><a href="#&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;"></a>&#x521D;&#x59CB;&#x5316;</h3><p>$f[0][0]=0$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>{</span><br><span class="line">    <span class="keyword">int</span> v;  <span class="comment">// &#x4F53;&#x79EF;</span></span><br><span class="line">    <span class="keyword">int</span> w;  <span class="comment">// &#x4EF7;&#x503C;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;  <span class="comment">// n&#x7269;&#x54C1;&#x603B;&#x4E2A;&#x6570;&#xFF0C;m&#x80CC;&#x5305;&#x5BB9;&#x91CF;</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[N][N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++){  <span class="comment">// &#x904D;&#x5386;&#x6BCF;&#x4E2A;&#x7269;&#x54C1;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= m; j++){  <span class="comment">// &#x679A;&#x4E3E;&#x6BCF;&#x4E2A;&#x4F53;&#x79EF;</span></span><br><span class="line">        f[i][j] = f[i-<span class="number">1</span>][j]</span><br><span class="line">        <span class="keyword">if</span>(j &gt;= product[i].v){</span><br><span class="line">            f[i][j] = Math.max(f[i][j],f[i-<span class="number">1</span>][j-product[i].v]+product[i].w);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++){</span><br><span class="line">    res = Math.max(res,f[n][i]);</span><br><span class="line">}</span><br><span class="line">System.out.println(res);</span><br></pre></td></tr></table></figure>
-<h3 id="&#x7A7A;&#x95F4;&#x4F18;&#x5316;"><a href="#&#x7A7A;&#x95F4;&#x4F18;&#x5316;" class="headerlink" title="&#x7A7A;&#x95F4;&#x4F18;&#x5316;"></a>&#x7A7A;&#x95F4;&#x4F18;&#x5316;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>{</span><br><span class="line">    <span class="keyword">int</span> v;  <span class="comment">// &#x4F53;&#x79EF;</span></span><br><span class="line">    <span class="keyword">int</span> w;  <span class="comment">// &#x4EF7;&#x503C;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;  <span class="comment">// n&#x7269;&#x54C1;&#x603B;&#x4E2A;&#x6570;&#xFF0C;m&#x80CC;&#x5305;&#x5BB9;&#x91CF;</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[N];  <span class="comment">// f[i]&#x8868;&#x793A;&#x4F53;&#x79EF;&#x662F;i&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x6700;&#x5927;&#x7684;&#x4EF7;&#x503C;&#x662F;&#x591A;&#x5C11;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++){  <span class="comment">// &#x904D;&#x5386;&#x6BCF;&#x4E2A;&#x7269;&#x54C1;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;= product[i].v; j--){  <span class="comment">// &#x679A;&#x4E3E;&#x6BCF;&#x4E2A;&#x4F53;&#x79EF;</span></span><br><span class="line">    	f[j] = Math.max(f[j],f[j-product[i].v]+product[i].w);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line">System.out.println(f[m]);</span><br></pre></td></tr></table></figure>
-<h3 id="&#x8BF4;&#x660E;"><a href="#&#x8BF4;&#x660E;" class="headerlink" title="&#x8BF4;&#x660E;"></a>&#x8BF4;&#x660E;</h3><ul class="ui list">
-<li>&#x4E0D;&#x9700;&#x8981;&#x88C5;&#x6EE1;<ul>
-<li>&#x521D;&#x59CB;&#x5316;&#x6240;&#x6709;&#x7684; $f[i]=0$ &#x65F6;&#xFF0C;$f[m]$ &#x4EE3;&#x8868;&#x6240;&#x6709;&#x4F53;&#x79EF;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E; $m$ &#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6700;&#x5927;&#x4EF7;&#x503C;</li>
-<li>&#x4E0D;&#x9700;&#x8981;&#x88C5;&#x6EE1;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;&#x6240;&#x6709;&#x4F53;&#x79EF;&#x7684;&#x80CC;&#x5305;&#x90FD;&#x53EF;&#x4EE5;&#x4EC0;&#x4E48;&#x4E5F;&#x4E0D;&#x88C5;&#xFF0C;&#x56E0;&#x6B64;&#x521D;&#x59CB;&#x5316;&#x6240;&#x6709;&#x7684; $f[i]=0$</li>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>$f[0][0]=0$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v;  <span class="comment">// 体积</span></span><br><span class="line">    <span class="keyword">int</span> w;  <span class="comment">// 价值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;  <span class="comment">// n物品总个数，m背包容量</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[N][N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;  <span class="comment">// 遍历每个物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= m; j++)&#123;  <span class="comment">// 枚举每个体积</span></span><br><span class="line">        f[i][j] = f[i-<span class="number">1</span>][j]</span><br><span class="line">        <span class="keyword">if</span>(j &gt;= product[i].v)&#123;</span><br><span class="line">            f[i][j] = Math.max(f[i][j],f[i-<span class="number">1</span>][j-product[i].v]+product[i].w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)&#123;</span><br><span class="line">    res = Math.max(res,f[n][i]);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(res);</span><br></pre></td></tr></table></figure>
+<h3 id="空间优化"><a href="#空间优化" class="headerlink" title="空间优化"></a>空间优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v;  <span class="comment">// 体积</span></span><br><span class="line">    <span class="keyword">int</span> w;  <span class="comment">// 价值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;  <span class="comment">// n物品总个数，m背包容量</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="keyword">int</span> f[N];  <span class="comment">// f[i]表示体积是i的情况，最大的价值是多少</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;  <span class="comment">// 遍历每个物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;= product[i].v; j--)&#123;  <span class="comment">// 枚举每个体积</span></span><br><span class="line">    	f[j] = Math.max(f[j],f[j-product[i].v]+product[i].w);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(f[m]);</span><br></pre></td></tr></table></figure>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<li>不需要装满<ul>
+<li>初始化所有的 $f[i]=0$ 时，$f[m]$ 代表所有体积小于等于 $m$ 的情况下，最大价值</li>
+<li>不需要装满，那么对于所有体积的背包都可以什么也不装，因此初始化所有的 $f[i]=0$</li>
 </ul>
 </li>
-<li>&#x6070;&#x597D;&#x88C5;&#x6EE1;<ul>
-<li>&#x5982;&#x679C;&#x53EA;&#x628A; $f[0]$ &#x521D;&#x59CB;&#x5316;&#x4E3A; 0&#xFF0C;&#x5176;&#x5B83;&#x7684;&#x521D;&#x59CB;&#x5316;&#x4E3A; $-\infty$ &#x65F6;&#xFF0C;&#x4F53;&#x79EF;&#x6070;&#x597D;&#x4E3A; $m$ &#x7684;&#x6700;&#x5927;&#x503C;</li>
-<li>&#x6070;&#x597D;&#x88C5;&#x6EE1;&#xFF0C;&#x53EA;&#x6709;&#x4F53;&#x79EF;&#x4E3A;0&#x7684;&#x80CC;&#x5305;&#x624D;&#x662F;&#x6070;&#x597D;&#x88C5;&#x6EE1;&#xFF0C;&#x5176;&#x5B83;&#x7684;&#x90FD;&#x4E0D;&#x7B26;&#x5408;&#x8981;&#x6C42;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981; $f[0]$ &#x521D;&#x59CB;&#x5316;&#x4E3A; 0&#xFF0C;&#x5176;&#x5B83;&#x7684;&#x521D;&#x59CB;&#x5316;&#x4E3A; $-\infty$ </li>
-<li>&#x7B54;&#x6848;&#x4E3A; $max(f[0-m])$</li>
+<li>恰好装满<ul>
+<li>如果只把 $f[0]$ 初始化为 0，其它的初始化为 $-\infty$ 时，体积恰好为 $m$ 的最大值</li>
+<li>恰好装满，只有体积为0的背包才是恰好装满，其它的都不符合要求，因此需要 $f[0]$ 初始化为 0，其它的初始化为 $-\infty$ </li>
+<li>答案为 $max(f[0-m])$</li>
 </ul>
 </li>
 </ul>
-<h2 id="&#x5B8C;&#x5168;&#x80CC;&#x5305;"><a href="#&#x5B8C;&#x5168;&#x80CC;&#x5305;" class="headerlink" title="&#x5B8C;&#x5168;&#x80CC;&#x5305;"></a>&#x5B8C;&#x5168;&#x80CC;&#x5305;</h2><h3 id="&#x72B6;&#x6001;&#x8868;&#x793A;-1"><a href="#&#x72B6;&#x6001;&#x8868;&#x793A;-1" class="headerlink" title="&#x72B6;&#x6001;&#x8868;&#x793A;"></a>&#x72B6;&#x6001;&#x8868;&#x793A;</h3><p>$f[i]$ &#x8868;&#x793A;&#x4F53;&#x79EF;&#x662F; $i$ &#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x6700;&#x5927;&#x4EF7;&#x503C;&#x662F;&#x591A;&#x5C11;</p>
+<h2 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h2><h3 id="状态表示-1"><a href="#状态表示-1" class="headerlink" title="状态表示"></a>状态表示</h3><p>$f[i]$ 表示体积是 $i$ 的情况下的最大价值是多少</p>
 <p>$max(f[0-m])$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++){</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;= product[i].v; j--){</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k*product[i].v &lt;= j; k++){</span><br><span class="line">            f[j] = max(f[j], f[j-k*product[i].v]+k*product[i].w);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h3 id="&#x4F18;&#x5316;"><a href="#&#x4F18;&#x5316;" class="headerlink" title="&#x4F18;&#x5316;"></a>&#x4F18;&#x5316;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++){</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = product[i].v; j &lt;= m; j++){</span><br><span class="line">        f[j] = max(f[j], f[j-product[i].v]+product[i].w);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="&#x591A;&#x91CD;&#x80CC;&#x5305;"><a href="#&#x591A;&#x91CD;&#x80CC;&#x5305;" class="headerlink" title="&#x591A;&#x91CD;&#x80CC;&#x5305;"></a>&#x591A;&#x91CD;&#x80CC;&#x5305;</h2><h3 id="&#x72B6;&#x6001;&#x8868;&#x793A;-2"><a href="#&#x72B6;&#x6001;&#x8868;&#x793A;-2" class="headerlink" title="&#x72B6;&#x6001;&#x8868;&#x793A;"></a>&#x72B6;&#x6001;&#x8868;&#x793A;</h3><p>&#x7B2C; $i$ &#x4EF6;&#x7269;&#x54C1;&#x6700;&#x591A;&#x53EA;&#x80FD;&#x53D6; $s_i$ &#x4EF6;</p>
-<p>$f[i]$ &#x8868;&#x793A;&#x603B;&#x4F53;&#x79EF;&#x662F; $i$ &#x60C5;&#x51B5;&#x4E0B;&#x6700;&#x5927;&#x4EF7;&#x503C;&#x662F;&#x591A;&#x5C11;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++){</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;=product[i].v; j--){</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= product[i].s &amp;&amp; k*product[i].v &lt;= j; k++){</span><br><span class="line">            f[j] = max(f[j], f[j-k*product[i].v]+k*w[i]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h3 id="&#x4F18;&#x5316;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x4F18;&#x5316;&#xFF09;"><a href="#&#x4F18;&#x5316;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x4F18;&#x5316;&#xFF09;" class="headerlink" title="&#x4F18;&#x5316;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x4F18;&#x5316;&#xFF09;"></a>&#x4F18;&#x5316;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x4F18;&#x5316;&#xFF09;</h3><p>&#x5982;&#x4F55;&#x628A;&#x591A;&#x91CD;&#x80CC;&#x5305;&#x95EE;&#x9898;&#x53D8;&#x6210;01&#x80CC;&#x5305;&#x95EE;&#x9898;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;= product[i].v; j--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k*product[i].v &lt;= j; k++)&#123;</span><br><span class="line">            f[j] = max(f[j], f[j-k*product[i].v]+k*product[i].w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = product[i].v; j &lt;= m; j++)&#123;</span><br><span class="line">        f[j] = max(f[j], f[j-product[i].v]+product[i].w);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h2><h3 id="状态表示-2"><a href="#状态表示-2" class="headerlink" title="状态表示"></a>状态表示</h3><p>第 $i$ 件物品最多只能取 $s_i$ 件</p>
+<p>$f[i]$ 表示总体积是 $i$ 情况下最大价值是多少</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j &gt;=product[i].v; j--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= product[i].s &amp;&amp; k*product[i].v &lt;= j; k++)&#123;</span><br><span class="line">            f[j] = max(f[j], f[j-k*product[i].v]+k*w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优化（二进制优化）"><a href="#优化（二进制优化）" class="headerlink" title="优化（二进制优化）"></a>优化（二进制优化）</h3><p>如何把多重背包问题变成01背包问题</p>
 
-                        
-                    </div>
-
-                    
-                    
-                    
-
-                    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2020-10-09T09:24:55.000Z" itemprop="datePublished">2020-10-09</time>
-
-    </span>
-    <span class="post-description-item">
-        
-
-    <span>
-        <i class="tags icon"></i>
-    </span>
-
+    </div>
     
-    <span class="ui tiny label">
-        <a href="/tags/hide/">hide</a>
-    </span>
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/10/11/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9/" class="pre-post btn btn-default" title='特征选择'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            特征选择</span>
+    </a>
+    
+    
+    <a href="/2020/09/01/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="next-post btn btn-default" title='HashMap源码分析'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            HashMap源码分析</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
 
+<div id="comments">
     
 
-    </span>
-</div>
-
-                </div>
-                
-                <div id="pagination" class="nav-web ui text container pagination">
-
-    <div class="ui stackable two column divided grid container">
-        <div class="row">
-            <div class="column nav-left">
-                
-
-                <a href="/2020/10/11/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9/" class="ui tiny button">
-
-                    <i class="angle left icon"></i>
-                    
-                    特征选择
-                    
-
-                </a>
-
-                
-            </div>
-            <div class="column nav-right">
-                
-
-                <a href="/2020/09/01/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="ui tiny button">
-                    
-                    HashMap源码分析
-                    
-                    <i class="angle right icon"></i></a>
-                
-            </div>
-        </div>
-    </div>
-
-</div>
-                
-            </div>
-
-            
-            <div class="three wide computer three wide tablet column">
-
-                <div class="ui sticky article-toc" id="article-toc">
-                    <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#01背包"><span>01背包</span></a><ol><li><a href="#状态表示"><span>状态表示</span></a></li><li><a href="#初始化"><span>初始化</span></a></li><li><a href="#空间优化"><span>空间优化</span></a></li><li><a href="#说明"><span>说明</span></a></li></ol></li><li><a href="#完全背包"><span>完全背包</span></a><ol><li><a href="#状态表示-1"><span>状态表示</span></a></li><li><a href="#优化"><span>优化</span></a></li></ol></li><li><a href="#多重背包"><span>多重背包</span></a><ol><li><a href="#状态表示-2"><span>状态表示</span></a></li><li><a href="#优化（二进制优化）"><span>优化（二进制优化）</span></a></li></ol></li></ol>
-                </div>
-
-            </div>
-            
-
-        </div>
-    </div>
-</div>
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2021 <a href="/">二十八度冬</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
-                href="http://hexo.io/" target="_blank">Hexo</a>.
-    </div>
-</div>
-
-    </div>
-
-
-
-
-<!-- scripts list from theme config.yml -->
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#01背包"><span class="toc-text">01背包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态表示"><span class="toc-text">状态表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间优化"><span class="toc-text">空间优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完全背包"><span class="toc-text">完全背包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态表示-1"><span class="toc-text">状态表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化"><span class="toc-text">优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多重背包"><span class="toc-text">多重背包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态表示-2"><span class="toc-text">状态表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化（二进制优化）"><span class="toc-text">优化（二进制优化）</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
 </body>
 </html>
