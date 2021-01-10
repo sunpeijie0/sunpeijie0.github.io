@@ -6,18 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content="null">
-    <title>Device-Agnostic Log Anomaly Classification with Partial Labels | 二十八度冬</title>
+    <title>特征选择 | 二十八度冬</title>
 
     <!-- Open Graph -->
-    <meta name="description" content="IWQoS 2018 &amp;#x4F20;&amp;#x7EDF;&amp;#x7684;&amp;#x4E8C;&amp;#x5206;&amp;#x7C7B;&amp;#x5668;&amp;#x5305;&amp;#x62EC;&amp;#x6B63;&amp;#x6837;&amp;#x672C;&amp;#x548C;&amp;#x8D1F;&amp;#x6837;&amp;#x672C;&amp;#xFF0C;PU Learning&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x662F;&amp;#x5728;&amp;">
-<meta name="keywords" content="Paper Notes">
+    <meta name="description" content="&amp;#x539F;&amp;#x59CB;&amp;#x7279;&amp;#x5F81;    &amp;#x7279;&amp;#x5F81;&amp;#x540D; &amp;#x8D77;&amp;#x59CB;&amp;#x7EF4;-&amp;#x7EC8;&amp;#x6B62;&amp;#x7EF4; (&amp;#x4E00;&amp;#x5171;&amp;#x591A;&amp;#x5C11;&amp;#x7EF4;)     appName 0-81 (82)   direction 82-85 (4)">
+<meta name="keywords" content="hide">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Device-Agnostic Log Anomaly Classification with Partial Labels">
-<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;11&#x2F;02&#x2F;Device-Agnostic%20Log%20Anomaly%20Classification%20with%20Partial%20Labels&#x2F;index.html">
+<meta property="og:title" content="特征选择">
+<meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2020&#x2F;10&#x2F;11&#x2F;%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9&#x2F;index.html">
 <meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="IWQoS 2018 &amp;#x4F20;&amp;#x7EDF;&amp;#x7684;&amp;#x4E8C;&amp;#x5206;&amp;#x7C7B;&amp;#x5668;&amp;#x5305;&amp;#x62EC;&amp;#x6B63;&amp;#x6837;&amp;#x672C;&amp;#x548C;&amp;#x8D1F;&amp;#x6837;&amp;#x672C;&amp;#xFF0C;PU Learning&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x662F;&amp;#x5728;&amp;">
+<meta property="og:description" content="&amp;#x539F;&amp;#x59CB;&amp;#x7279;&amp;#x5F81;    &amp;#x7279;&amp;#x5F81;&amp;#x540D; &amp;#x8D77;&amp;#x59CB;&amp;#x7EF4;-&amp;#x7EC8;&amp;#x6B62;&amp;#x7EF4; (&amp;#x4E00;&amp;#x5171;&amp;#x591A;&amp;#x5C11;&amp;#x7EF4;)     appName 0-81 (82)   direction 82-85 (4)">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-12T12:01:08.000Z">
+<meta property="og:updated_time" content="2020-12-26T07:55:01.016Z">
 <meta name="twitter:card" content="summary">
 
     <script type="application/ld+json">
@@ -131,7 +131,7 @@
             <!--<div class="ui one column grid">-->
                 <!--<div class="column">-->
                     <!--<div class="ui main container">-->
-                        <div id="post-Device-Agnostic Log Anomaly Classification with Partial Labels" class="ui main container article-type-post">
+                        <div id="post-特征选择" class="ui main container article-type-post">
 
     
 
@@ -144,7 +144,7 @@
 
 <h1 class="ui header">
     
-    Device-Agnostic Log Anomaly Classification with Partial Labels
+    特征选择
 </h1>
 
 
@@ -153,13 +153,92 @@
 
                     <div class="article-entry" itemprop="articleBody">
                         
-                        <blockquote>
-<p>IWQoS 2018</p>
-<p>&#x4F20;&#x7EDF;&#x7684;&#x4E8C;&#x5206;&#x7C7B;&#x5668;&#x5305;&#x62EC;&#x6B63;&#x6837;&#x672C;&#x548C;&#x8D1F;&#x6837;&#x672C;&#xFF0C;PU Learning&#x89E3;&#x51B3;&#x7684;&#x662F;&#x5728;&#x53EA;&#x6709;&#x90E8;&#x5206;&#x6807;&#x8BB0;&#x7684;&#x6B63;&#x6837;&#x672C;&#x4EE5;&#x53CA;&#x4E00;&#x4E9B;&#x672A;&#x6807;&#x8BB0;&#x7684;&#x6837;&#x672C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E8C;&#x5206;&#x7C7B;&#x5668;&#x7684;&#x8BAD;&#x7EC3;&#x95EE;&#x9898;&#x3002;</p>
-</blockquote>
-<h3 id="&#x9884;&#x5904;&#x7406;"><a href="#&#x9884;&#x5904;&#x7406;" class="headerlink" title="&#x9884;&#x5904;&#x7406;"></a>&#x9884;&#x5904;&#x7406;</h3><p>&#x4E0D;&#x540C;&#x7684;&#x8BBE;&#x5907;&#x5382;&#x5546;&#x548C;&#x8BBE;&#x5907;&#x7C7B;&#x578B;&#x6709;&#x4E0D;&#x540C;&#x683C;&#x5F0F;&#x7684;&#x65E5;&#x5FD7;&#x6D88;&#x606F;&#xFF0C;&#x73B0;&#x6709;&#x7684;&#x6A21;&#x677F;&#x63D0;&#x53D6;&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x9488;&#x5BF9;&#x6BCF;&#x4E2A;&#x8BBE;&#x5907;&#x90FD;&#x8FDB;&#x884C;&#x6A21;&#x677F;&#x63D0;&#x53D6;&#x3002;&#x672C;&#x6587;&#x5C06;&#x5355;&#x8BCD;&#x5206;&#x6210;&#x4E24;&#x7C7B;&#xFF0C;&#x6587;&#x672C;&#x548C;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x8FC7;&#x6EE4;&#x6389;&#x53C2;&#x6570;&#xFF0C;&#x5F97;&#x5230;&#x4E0E;&#x8BBE;&#x5907;&#x65E0;&#x5173;&#x7684;&#x65E5;&#x5FD7;&#x3002;</p>
-<h3 id="&#x7279;&#x5F81;&#x5411;&#x91CF;"><a href="#&#x7279;&#x5F81;&#x5411;&#x91CF;" class="headerlink" title="&#x7279;&#x5F81;&#x5411;&#x91CF;"></a>&#x7279;&#x5F81;&#x5411;&#x91CF;</h3><p>&#x4F7F;&#x7528; TF-IDF &#x63CF;&#x8FF0;&#x6A21;&#x677F;&#x7684;&#x6743;&#x91CD;&#x3002;</p>
-<h3 id="&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;"><a href="#&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;" class="headerlink" title="&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;"></a>&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;</h3><p>&#x4F7F;&#x7528; PU-Learning &#x5C06;&#x5355;&#x8BCD;&#x5206;&#x7C7B;&#xFF0C;&#x5E76;&#x4F7F;&#x7528; SVM &#x4F5C;&#x4E3A;&#x591A;&#x5206;&#x7C7B;&#x5668;&#x7B97;&#x6CD5;&#xFF0C;&#x5728; SVM &#x8BAD;&#x7EC3;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x6BCF;&#x4E2A;&#x6A21;&#x677F;&#x7684;&#x8BAD;&#x7EC3;&#x7CFB;&#x6570;&#x5411;&#x91CF;&#xFF0C;&#x901A;&#x8FC7;&#x5C06;&#x6BCF;&#x4E2A;&#x5411;&#x91CF;&#x7684;&#x503C;&#x6392;&#x5E8F;&#xFF0C;&#x5F97;&#x5230; top n &#x4E2A;&#x91CD;&#x8981;&#x7684;&#x5355;&#x8BCD;&#xFF0C;&#x7BA1;&#x7406;&#x5458;&#x6839;&#x636E;&#x8FD9; n &#x4E2A;&#x91CD;&#x8981;&#x7684;&#x5355;&#x8BCD;&#x63A8;&#x65AD;&#x51FA;&#x65E5;&#x5FD7;&#x6240;&#x5C5E;&#x7684;&#x7C7B;&#x522B;&#x3002;</p>
+                        <h3 id="&#x539F;&#x59CB;&#x7279;&#x5F81;"><a href="#&#x539F;&#x59CB;&#x7279;&#x5F81;" class="headerlink" title="&#x539F;&#x59CB;&#x7279;&#x5F81;"></a>&#x539F;&#x59CB;&#x7279;&#x5F81;</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>&#x7279;&#x5F81;&#x540D;</th>
+<th>&#x8D77;&#x59CB;&#x7EF4;-&#x7EC8;&#x6B62;&#x7EF4; (&#x4E00;&#x5171;&#x591A;&#x5C11;&#x7EF4;)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><em>appName</em></strong></td>
+<td>0-81 (82)</td>
+</tr>
+<tr>
+<td><strong><em>direction</em></strong></td>
+<td>82-85 (4)</td>
+</tr>
+<tr>
+<td><strong><em>sourceTCPFlagsDescription</em></strong></td>
+<td>86-101 (16)</td>
+</tr>
+<tr>
+<td><strong><em>destinationTCPFlagsDescription</em></strong></td>
+<td>102-117 (16)</td>
+</tr>
+<tr>
+<td><strong><em>protocolName</em></strong></td>
+<td>118-120 (3)</td>
+</tr>
+<tr>
+<td><em>totalSourceBytes</em></td>
+<td>121(1)</td>
+</tr>
+<tr>
+<td><em>totalDestinationBytes</em></td>
+<td>122(1)</td>
+</tr>
+<tr>
+<td><em>totalSourcePackets</em></td>
+<td>123(1)</td>
+</tr>
+<tr>
+<td><em>totalDestinationPackets</em></td>
+<td>124(1)</td>
+</tr>
+<tr>
+<td><em>sourcePort</em></td>
+<td>125(1)</td>
+</tr>
+<tr>
+<td><em>destinationPort</em></td>
+<td>126(1)</td>
+</tr>
+<tr>
+<td><em>sourcePayloadAsBase64</em> and <em>destinationPayloadsAsBase64</em></td>
+<td>127-4239 (4113)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="&#x7279;&#x5F81;&#x9009;&#x62E9;"><a href="#&#x7279;&#x5F81;&#x9009;&#x62E9;" class="headerlink" title="&#x7279;&#x5F81;&#x9009;&#x62E9;"></a>&#x7279;&#x5F81;&#x9009;&#x62E9;</h3><p><strong>Input: </strong>&#x6570;&#x636E;&#x96C6; $D$&#xFF0C;&#x539F;&#x59CB;&#x7279;&#x5F81;&#x96C6; $F$&#xFF0C;&#x539F;&#x59CB;&#x7279;&#x5F81;&#x96C6;&#x7684;&#x5927;&#x5C0F; $N$</p>
+<p>&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x6392;&#x5E8F;&#x96C6; $S$&#xFF0C;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x5B57;&#x5178; $Map$</p>
+<p>&#x5FAA;&#x73AF; $N$ &#x6B21;&#xFF1A;</p>
+<ol class="ui list">
+<li>&#x4F7F;&#x7528; $F$ &#x8BAD;&#x7EC3; SVM &#x5206;&#x7C7B;&#x5668;&#xFF0C;&#x5F97;&#x5230;&#x5411;&#x91CF; $\alpha$ &#x548C;&#x652F;&#x6301;&#x5411;&#x91CF; $X$ </li>
+<li>&#x6839;&#x636E;&#x516C;&#x5F0F; $DJ=\frac{1}{2}\alpha^TH\alpha-\frac{1}{2}\alpha^TH(+i)\alpha$ &#x8BA1;&#x7B97;&#x51FA; $F$ &#x4E2D;&#x6BCF;&#x4E2A;&#x7279;&#x5F81;&#x7684; $DJ$</li>
+<li>$F$ &#x7279;&#x5F81;&#x96C6;&#x5927;&#x5C0F;&#x4E3A; $len$</li>
+<li>&#x8BA1;&#x7B97; $F$ &#x4E2D;&#x6BCF;&#x4E2A;&#x7279;&#x5F81;&#x7684; $DJ<em>i$&#xFF0C;&#x8BB0; $f_m=\mathop{\arg\max}\limits</em>{f_i}DJ_i,  i\in[1,len]$</li>
+<li>&#x8BA1;&#x7B97; $f<em>m$ &#x4E0E; $F$ &#x4E2D;&#x5269;&#x4F59;&#x7279;&#x5F81;&#x7684;&#x6700;&#x5927;&#x4E0D;&#x786E;&#x5B9A;&#x6027; $SU</em>{f<em>mf_j}$&#xFF0C;$f_m$ &#x4E0E;&#x5176;&#x5B83;&#x7279;&#x5F81;&#x7684;&#x5E73;&#x5747;&#x4E0D;&#x786E;&#x5B9A;&#x6027;&#x8BB0;&#x4E3A; $\overline{SU</em>{f_{m}}}$ </li>
+<li>&#x8BB0; $f<em>s=\mathop{\arg\max}\limits</em>{f<em>j}SU</em>{f_mf_j}$</li>
+<li>&#x5B58;&#x50A8;&#x952E;&#x503C;&#x5BF9; $(F_s,  F_m)$ &#x5230; $Map$ &#x4E2D;&#xFF0C;&#x8868;&#x793A; $F_s$ &#x4E0E; $F_m$ &#x76F8;&#x5173;&#x6027;&#x6BD4;&#x8F83;&#x5F3A;</li>
+<li>&#x4E0B;&#x9762;&#x7684;&#x6BD4;&#x8F83;&#x8FF7;<ul>
+<li>&#x5982;&#x679C; $Map$ &#x4E0D;&#x542B;&#x952E; $f<em>{m}$&#xFF0C;&#x8868;&#x793A;&#x6CA1;&#x6709;&#x548C; $F_m$ &#x5F3A;&#x76F8;&#x5173;&#x7684;&#x7279;&#x5F81;&#xFF0C;&#x5219;&#x5C06; $F</em>{m}$ &#x52A0;&#x5165;&#x5230; $S$&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x4ECE; $F$ &#x4E2D;&#x79FB;&#x9664;</li>
+<li>&#x5982;&#x679C; $Map$ &#x5305;&#x542B;&#x952E; $f_{m}$&#xFF0C;&#x53D6;&#x51FA;&#x5BF9;&#x5E94;&#x7684;&#x503C; $F_m&#x2019;$</li>
+<li>&#x6B64;&#x65F6; $F_m&#x2019;$ , $F_s$ &#x4E0E; $F_m$&#x76F8;&#x5173;&#x6027;&#x90FD;&#x6BD4;&#x8F83;&#x5F3A;<ul>
+<li>&#x5982;&#x679C; $DJ<em>{F</em>{m&#x2019;}} &gt; DJ_{F_m}$&#xFF0C;&#x4ECE; $F$ &#x4E2D;&#x79FB;&#x9664;&#x7279;&#x5F81; $F_m$</li>
+<li>&#x5982;&#x679C; $DJ<em>{F</em>{m&#x2019;}} &lt; DJ_{F_m}$<ul>
+<li>&#x5982;&#x679C; $\overline{SU<em>{F</em>{SUMax}}} &gt; \overline{SU<em>{F</em>{DJMax}}}$&#xFF0C;&#x4ECE; $F$ &#x4E2D;&#x79FB;&#x9664;&#x8BE5;&#x7279;&#x5F81;</li>
+<li>&#x5982;&#x679C; $\overline{SU<em>{F</em>{SUMax}}} &lt; \overline{SU<em>{F</em>{DJMax}}}$&#xFF0C;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 
                         
                     </div>
@@ -170,7 +249,7 @@
 
                     <div class="description post-description">
     <span class="post-description-item">
-        <time datetime="2019-11-02T02:39:57.000Z" itemprop="datePublished">2019-11-02</time>
+        <time datetime="2020-10-11T12:40:19.000Z" itemprop="datePublished">2020-10-11</time>
 
     </span>
     <span class="post-description-item">
@@ -182,7 +261,7 @@
 
     
     <span class="ui tiny label">
-        <a href="/tags/Paper-Notes/">Paper Notes</a>
+        <a href="/tags/hide/">hide</a>
     </span>
 
     
@@ -199,11 +278,11 @@
             <div class="column nav-left">
                 
 
-                <a href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/" class="ui tiny button">
+                <a href="/2020/12/26/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" class="ui tiny button">
 
                     <i class="angle left icon"></i>
                     
-                    NFS+Pacemaker实现Mariadb高可用
+                    快慢指针
                     
 
                 </a>
@@ -213,9 +292,9 @@
             <div class="column nav-right">
                 
 
-                <a href="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/" class="ui tiny button">
+                <a href="/2020/10/09/01%E8%83%8C%E5%8C%85/" class="ui tiny button">
                     
-                    LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs
+                    01背包
                     
                     <i class="angle right icon"></i></a>
                 
@@ -232,7 +311,7 @@
 
                 <div class="ui sticky article-toc" id="article-toc">
                     <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#预处理"><span>预处理</span></a></li><li><a href="#特征向量"><span>特征向量</span></a></li><li><a href="#训练和分类"><span>训练和分类</span></a></li></ol>
+                    <ol class="ui ordered list"><li><a href="#原始特征"><span>原始特征</span></a></li><li><a href="#特征选择"><span>特征选择</span></a></li></ol>
                 </div>
 
             </div>

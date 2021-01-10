@@ -9,13 +9,13 @@
     <title>A Search-based Approach for Accurate Identification of Log Message Formats | 二十八度冬</title>
 
     <!-- Open Graph -->
-    <meta name="description" content="ICPC 2018 日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足">
+    <meta name="description" content="ICPC 2018 &amp;#x65E5;&amp;#x5FD7;&amp;#x6A21;&amp;#x677F;&amp;#x7684;&amp;#x63D0;&amp;#x53D6;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x591A;&amp;#x76EE;&amp;#x6807;&amp;#x4F18;&amp;#x5316;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x65E2;&amp;#x8981;&amp;#x8003;&amp;#x8651;&amp;#x6A21;&amp;#x67">
 <meta name="keywords" content="Paper Notes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Search-based Approach for Accurate Identification of Log Message Formats">
 <meta property="og:url" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;2019&#x2F;10&#x2F;10&#x2F;A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats&#x2F;index.html">
 <meta property="og:site_name" content="二十八度冬">
-<meta property="og:description" content="ICPC 2018 日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足">
+<meta property="og:description" content="ICPC 2018 &amp;#x65E5;&amp;#x5FD7;&amp;#x6A21;&amp;#x677F;&amp;#x7684;&amp;#x63D0;&amp;#x53D6;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x591A;&amp;#x76EE;&amp;#x6807;&amp;#x4F18;&amp;#x5316;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x65E2;&amp;#x8981;&amp;#x8003;&amp;#x8651;&amp;#x6A21;&amp;#x67">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;template.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;sunpeijie0.github.io&#x2F;.io&#x2F;&#x2F;InitialPopulation.png">
@@ -159,46 +159,46 @@
                         
                         <blockquote>
 <p>ICPC 2018</p>
-<p>日志模板的提取是一个多目标优化问题，既要考虑模板具有足够的一般性（覆盖足够多的日志），又要考虑模板具有特殊性（模板不能太过广泛）。$X$ 是一套模板（一种方案），匹配了所有的日志，$X = {\tau_1,…\tau_n}$, $X\subseteq S$, $S$是所有可行解的集合，$X$ 中的每个模板 $\tau_i\in X$ with $i = 1,…,n$ 既匹配足够多的日志，又包含足够少的可变 tokens。</p>
+<p>&#x65E5;&#x5FD7;&#x6A21;&#x677F;&#x7684;&#x63D0;&#x53D6;&#x662F;&#x4E00;&#x4E2A;&#x591A;&#x76EE;&#x6807;&#x4F18;&#x5316;&#x95EE;&#x9898;&#xFF0C;&#x65E2;&#x8981;&#x8003;&#x8651;&#x6A21;&#x677F;&#x5177;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x4E00;&#x822C;&#x6027;&#xFF08;&#x8986;&#x76D6;&#x8DB3;&#x591F;&#x591A;&#x7684;&#x65E5;&#x5FD7;&#xFF09;&#xFF0C;&#x53C8;&#x8981;&#x8003;&#x8651;&#x6A21;&#x677F;&#x5177;&#x6709;&#x7279;&#x6B8A;&#x6027;&#xFF08;&#x6A21;&#x677F;&#x4E0D;&#x80FD;&#x592A;&#x8FC7;&#x5E7F;&#x6CDB;&#xFF09;&#x3002;$X$ &#x662F;&#x4E00;&#x5957;&#x6A21;&#x677F;&#xFF08;&#x4E00;&#x79CD;&#x65B9;&#x6848;&#xFF09;&#xFF0C;&#x5339;&#x914D;&#x4E86;&#x6240;&#x6709;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;$X = {\tau_1,&#x2026;\tau_n}$, $X\subseteq S$, $S$&#x662F;&#x6240;&#x6709;&#x53EF;&#x884C;&#x89E3;&#x7684;&#x96C6;&#x5408;&#xFF0C;$X$ &#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x6A21;&#x677F; $\tau_i\in X$ with $i = 1,&#x2026;,n$ &#x65E2;&#x5339;&#x914D;&#x8DB3;&#x591F;&#x591A;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x53C8;&#x5305;&#x542B;&#x8DB3;&#x591F;&#x5C11;&#x7684;&#x53EF;&#x53D8; tokens&#x3002;</p>
 </blockquote>
-<h2 id="形式化问题"><a href="#形式化问题" class="headerlink" title="形式化问题"></a>形式化问题</h2><blockquote>
-<p>日志模板提取问题是多目标优化问题，设计到两个目标函数。</p>
+<h2 id="&#x5F62;&#x5F0F;&#x5316;&#x95EE;&#x9898;"><a href="#&#x5F62;&#x5F0F;&#x5316;&#x95EE;&#x9898;" class="headerlink" title="&#x5F62;&#x5F0F;&#x5316;&#x95EE;&#x9898;"></a>&#x5F62;&#x5F0F;&#x5316;&#x95EE;&#x9898;</h2><blockquote>
+<p>&#x65E5;&#x5FD7;&#x6A21;&#x677F;&#x63D0;&#x53D6;&#x95EE;&#x9898;&#x662F;&#x591A;&#x76EE;&#x6807;&#x4F18;&#x5316;&#x95EE;&#x9898;&#xFF0C;&#x8BBE;&#x8BA1;&#x5230;&#x4E24;&#x4E2A;&#x76EE;&#x6807;&#x51FD;&#x6570;&#x3002;</p>
 </blockquote>
-<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><script type="math/tex; mode=display">
+<h3 id="&#x76EE;&#x6807;&#x51FD;&#x6570;"><a href="#&#x76EE;&#x6807;&#x51FD;&#x6570;" class="headerlink" title="&#x76EE;&#x6807;&#x51FD;&#x6570;"></a>&#x76EE;&#x6807;&#x51FD;&#x6570;</h3><script type="math/tex; mode=display">
 Freq(X) = \sum_{i=1}^{n}{\frac{|match(\tau_i,M)|}{n\times|M|}}</script><blockquote>
-<p>$match(\tau,M)$  代表日志集合 $M$ 中匹配模板 $\tau$ 的那部分日志集合。</p>
+<p>$match(\tau,M)$  &#x4EE3;&#x8868;&#x65E5;&#x5FD7;&#x96C6;&#x5408; $M$ &#x4E2D;&#x5339;&#x914D;&#x6A21;&#x677F; $\tau$ &#x7684;&#x90A3;&#x90E8;&#x5206;&#x65E5;&#x5FD7;&#x96C6;&#x5408;&#x3002;</p>
 </blockquote>
 <script type="math/tex; mode=display">
 Spec(X) = \sum_{i=1}^{n}{\frac{fixed(\tau_i)}{n\times tok(\tau_i)}}</script><blockquote>
-<p>$fix(\tau)$ 代表模板 $\tau$ 中固定 tokens 数目，$token(\tau)$ 代表模板 $\tau$ 中，tokens 总数。</p>
+<p>$fix(\tau)$ &#x4EE3;&#x8868;&#x6A21;&#x677F; $\tau$ &#x4E2D;&#x56FA;&#x5B9A; tokens &#x6570;&#x76EE;&#xFF0C;$token(\tau)$ &#x4EE3;&#x8868;&#x6A21;&#x677F; $\tau$ &#x4E2D;&#xFF0C;tokens &#x603B;&#x6570;&#x3002;</p>
 </blockquote>
-<h3 id="对方案的约束"><a href="#对方案的约束" class="headerlink" title="对方案的约束"></a>对方案的约束</h3><blockquote>
-<p>帕累托最优并不一定成功匹配所有的日志。</p>
-<p>在方案 $X$ 中，两个不同的模板 $\tau_1$ 和 $\tau_2$ 可能匹配同一个日志。</p>
-<p>因此，需要对方案就行约束：</p>
+<h3 id="&#x5BF9;&#x65B9;&#x6848;&#x7684;&#x7EA6;&#x675F;"><a href="#&#x5BF9;&#x65B9;&#x6848;&#x7684;&#x7EA6;&#x675F;" class="headerlink" title="&#x5BF9;&#x65B9;&#x6848;&#x7684;&#x7EA6;&#x675F;"></a>&#x5BF9;&#x65B9;&#x6848;&#x7684;&#x7EA6;&#x675F;</h3><blockquote>
+<p>&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;&#x5E76;&#x4E0D;&#x4E00;&#x5B9A;&#x6210;&#x529F;&#x5339;&#x914D;&#x6240;&#x6709;&#x7684;&#x65E5;&#x5FD7;&#x3002;</p>
+<p>&#x5728;&#x65B9;&#x6848; $X$ &#x4E2D;&#xFF0C;&#x4E24;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x677F; $\tau_1$ &#x548C; $\tau_2$ &#x53EF;&#x80FD;&#x5339;&#x914D;&#x540C;&#x4E00;&#x4E2A;&#x65E5;&#x5FD7;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x9700;&#x8981;&#x5BF9;&#x65B9;&#x6848;&#x5C31;&#x884C;&#x7EA6;&#x675F;&#xFF1A;</p>
 </blockquote>
 <script type="math/tex; mode=display">
 \cup_{i=1}^{n}match(\tau_i,M) = M</script><script type="math/tex; mode=display">
-match(\tau_i,M)\cap match(\tau_j,M) = \phi\ for\ all\ \tau_i,\ \tau_j \in X,\ \tau_i\neq\tau_j</script><h2 id="MoLFI"><a href="#MoLFI" class="headerlink" title="MoLFI"></a>MoLFI</h2><h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><blockquote>
-<p>去掉重复的日志，替换某些可变部分为正则表达式 $#spec#$，剩下的可变部分用 $*$ 代替。</p>
+match(\tau_i,M)\cap match(\tau_j,M) = \phi\ for\ all\ \tau_i,\ \tau_j \in X,\ \tau_i\neq\tau_j</script><h2 id="MoLFI"><a href="#MoLFI" class="headerlink" title="MoLFI"></a>MoLFI</h2><h3 id="&#x9884;&#x5904;&#x7406;"><a href="#&#x9884;&#x5904;&#x7406;" class="headerlink" title="&#x9884;&#x5904;&#x7406;"></a>&#x9884;&#x5904;&#x7406;</h3><blockquote>
+<p>&#x53BB;&#x6389;&#x91CD;&#x590D;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x66FF;&#x6362;&#x67D0;&#x4E9B;&#x53EF;&#x53D8;&#x90E8;&#x5206;&#x4E3A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F; $#spec#$&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x53EF;&#x53D8;&#x90E8;&#x5206;&#x7528; $*$ &#x4EE3;&#x66FF;&#x3002;</p>
 </blockquote>
-<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><blockquote>
-<p>染色体 $C$ 是一个组的集合 $C = {G1,…,G_{max}}$，其中 $G_L = {\tau_1,…,\tau_k}$ 是 tokens 数目为 L 的模板集合。该编码避免了将每个模板与每个日志相比较，尽管它们有不同的 tokens 长度，提高了效率。</p>
+<h3 id="&#x7F16;&#x7801;"><a href="#&#x7F16;&#x7801;" class="headerlink" title="&#x7F16;&#x7801;"></a>&#x7F16;&#x7801;</h3><blockquote>
+<p>&#x67D3;&#x8272;&#x4F53; $C$ &#x662F;&#x4E00;&#x4E2A;&#x7EC4;&#x7684;&#x96C6;&#x5408; $C = {G1,&#x2026;,G_{max}}$&#xFF0C;&#x5176;&#x4E2D; $G_L = {\tau_1,&#x2026;,\tau_k}$ &#x662F; tokens &#x6570;&#x76EE;&#x4E3A; L &#x7684;&#x6A21;&#x677F;&#x96C6;&#x5408;&#x3002;&#x8BE5;&#x7F16;&#x7801;&#x907F;&#x514D;&#x4E86;&#x5C06;&#x6BCF;&#x4E2A;&#x6A21;&#x677F;&#x4E0E;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x76F8;&#x6BD4;&#x8F83;&#xFF0C;&#x5C3D;&#x7BA1;&#x5B83;&#x4EEC;&#x6709;&#x4E0D;&#x540C;&#x7684; tokens &#x957F;&#x5EA6;&#xFF0C;&#x63D0;&#x9AD8;&#x4E86;&#x6548;&#x7387;&#x3002;</p>
 </blockquote>
-<p><img src="/.io//template.png" alt="template"></p>
-<h3 id="初始化种群"><a href="#初始化种群" class="headerlink" title="初始化种群"></a>初始化种群</h3><blockquote>
-<p>种群是一组方案的集合，种群 $P$ 里有 $N$ 条染色体 $C$，对应着 $N$ 个解决方案（$N$ 套模板）。</p>
+<p><a class="magnific-img" href="/.io//template.png"><img src="/.io//template.png" alt="template" class="ui centered image"></a></p>
+<h3 id="&#x521D;&#x59CB;&#x5316;&#x79CD;&#x7FA4;"><a href="#&#x521D;&#x59CB;&#x5316;&#x79CD;&#x7FA4;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x79CD;&#x7FA4;"></a>&#x521D;&#x59CB;&#x5316;&#x79CD;&#x7FA4;</h3><blockquote>
+<p>&#x79CD;&#x7FA4;&#x662F;&#x4E00;&#x7EC4;&#x65B9;&#x6848;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x79CD;&#x7FA4; $P$ &#x91CC;&#x6709; $N$ &#x6761;&#x67D3;&#x8272;&#x4F53; $C$&#xFF0C;&#x5BF9;&#x5E94;&#x7740; $N$ &#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF08;$N$ &#x5957;&#x6A21;&#x677F;&#xFF09;&#x3002;</p>
 </blockquote>
-<p><img src="/.io//InitialPopulation.png" alt="InitialPopulation"></p>
-<h3 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h3><blockquote>
-<p>选择两条染色体 $A = { A<em>1,…,A</em>{max}}$ 和 $B = { B_1,…,B{max}}$，使用 $uniform\ crossover$。</p>
-<p>首先生成一个随机向量 $\beta$ 做为交叉掩码。$O_1$ 与 $O_2$ 为两个后代，当 $\beta$ 在位置 $L$ 处的位置为0，则 $O_1$ 继承 $A_L$，$O_2$ 继承 $B_L$；否则，$O_1$ 继承 $B_L$，$O_2$ 继承 $A_L$。</p>
+<p><a class="magnific-img" href="/.io//InitialPopulation.png"><img src="/.io//InitialPopulation.png" alt="InitialPopulation" class="ui centered image"></a></p>
+<h3 id="&#x4EA4;&#x53C9;"><a href="#&#x4EA4;&#x53C9;" class="headerlink" title="&#x4EA4;&#x53C9;"></a>&#x4EA4;&#x53C9;</h3><blockquote>
+<p>&#x9009;&#x62E9;&#x4E24;&#x6761;&#x67D3;&#x8272;&#x4F53; $A = { A<em>1,&#x2026;,A</em>{max}}$ &#x548C; $B = { B_1,&#x2026;,B{max}}$&#xFF0C;&#x4F7F;&#x7528; $uniform\ crossover$&#x3002;</p>
+<p>&#x9996;&#x5148;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x5411;&#x91CF; $\beta$ &#x505A;&#x4E3A;&#x4EA4;&#x53C9;&#x63A9;&#x7801;&#x3002;$O_1$ &#x4E0E; $O_2$ &#x4E3A;&#x4E24;&#x4E2A;&#x540E;&#x4EE3;&#xFF0C;&#x5F53; $\beta$ &#x5728;&#x4F4D;&#x7F6E; $L$ &#x5904;&#x7684;&#x4F4D;&#x7F6E;&#x4E3A;0&#xFF0C;&#x5219; $O_1$ &#x7EE7;&#x627F; $A_L$&#xFF0C;$O_2$ &#x7EE7;&#x627F; $B_L$&#xFF1B;&#x5426;&#x5219;&#xFF0C;$O_1$ &#x7EE7;&#x627F; $B_L$&#xFF0C;$O_2$ &#x7EE7;&#x627F; $A_L$&#x3002;</p>
 </blockquote>
-<h3 id="变异"><a href="#变异" class="headerlink" title="变异"></a>变异</h3><blockquote>
-<p>对染色体 $C = { G<em>1,…,G</em>{max}}$ 的变异，是以 $\frac{1}{max}$ 概率对某个组 $G_L$ 的变异。对某个组 $G_L$ 的变异，其实是对 $G_L = { \tau _1,…,\tau _k}$ 中的某个模板 $\tau$ 的变异。对 $\tau$ 的变异，其实是对 $\tau = [token_1,…token_n]$ 中某个 token 的变异。如果该位置 token 是固定的，则将其改变为 $<em>$，如果该位置 token 是可变的 $</em>$，则随机用匹配该模板的日志中相同位置替换，如果该位置是 $# spec#$，则不进行变异。</p>
-<p>变异有可能增加一般性，也有可能增加特殊性。</p>
+<h3 id="&#x53D8;&#x5F02;"><a href="#&#x53D8;&#x5F02;" class="headerlink" title="&#x53D8;&#x5F02;"></a>&#x53D8;&#x5F02;</h3><blockquote>
+<p>&#x5BF9;&#x67D3;&#x8272;&#x4F53; $C = { G<em>1,&#x2026;,G</em>{max}}$ &#x7684;&#x53D8;&#x5F02;&#xFF0C;&#x662F;&#x4EE5; $\frac{1}{max}$ &#x6982;&#x7387;&#x5BF9;&#x67D0;&#x4E2A;&#x7EC4; $G_L$ &#x7684;&#x53D8;&#x5F02;&#x3002;&#x5BF9;&#x67D0;&#x4E2A;&#x7EC4; $G_L$ &#x7684;&#x53D8;&#x5F02;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x5BF9; $G_L = { \tau _1,&#x2026;,\tau _k}$ &#x4E2D;&#x7684;&#x67D0;&#x4E2A;&#x6A21;&#x677F; $\tau$ &#x7684;&#x53D8;&#x5F02;&#x3002;&#x5BF9; $\tau$ &#x7684;&#x53D8;&#x5F02;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x5BF9; $\tau = [token_1,&#x2026;token_n]$ &#x4E2D;&#x67D0;&#x4E2A; token &#x7684;&#x53D8;&#x5F02;&#x3002;&#x5982;&#x679C;&#x8BE5;&#x4F4D;&#x7F6E; token &#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x5219;&#x5C06;&#x5176;&#x6539;&#x53D8;&#x4E3A; $<em>$&#xFF0C;&#x5982;&#x679C;&#x8BE5;&#x4F4D;&#x7F6E; token &#x662F;&#x53EF;&#x53D8;&#x7684; $</em>$&#xFF0C;&#x5219;&#x968F;&#x673A;&#x7528;&#x5339;&#x914D;&#x8BE5;&#x6A21;&#x677F;&#x7684;&#x65E5;&#x5FD7;&#x4E2D;&#x76F8;&#x540C;&#x4F4D;&#x7F6E;&#x66FF;&#x6362;&#xFF0C;&#x5982;&#x679C;&#x8BE5;&#x4F4D;&#x7F6E;&#x662F; $# spec#$&#xFF0C;&#x5219;&#x4E0D;&#x8FDB;&#x884C;&#x53D8;&#x5F02;&#x3002;</p>
+<p>&#x53D8;&#x5F02;&#x6709;&#x53EF;&#x80FD;&#x589E;&#x52A0;&#x4E00;&#x822C;&#x6027;&#xFF0C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x589E;&#x52A0;&#x7279;&#x6B8A;&#x6027;&#x3002;</p>
 </blockquote>
-<h3 id="选择一个帕累托最优方案"><a href="#选择一个帕累托最优方案" class="headerlink" title="选择一个帕累托最优方案"></a>选择一个帕累托最优方案</h3><p><img src="/.io//ParetoOptimal.png" alt="帕累托最优"></p>
+<h3 id="&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;&#x65B9;&#x6848;"><a href="#&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;&#x65B9;&#x6848;" class="headerlink" title="&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;&#x65B9;&#x6848;"></a>&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;&#x65B9;&#x6848;</h3><p><a class="magnific-img" href="/.io//ParetoOptimal.png"><img src="/.io//ParetoOptimal.png" alt="&#x5E15;&#x7D2F;&#x6258;&#x6700;&#x4F18;" class="ui centered image"></a></p>
 
                         
                     </div>
@@ -289,7 +289,7 @@ match(\tau_i,M)\cap match(\tau_j,M) = \phi\ for\ all\ \tau_i,\ \tau_j \in X,\ \t
         <div class="ui vertical footer segment">
     <div class="ui center aligned container">
         <div class="ui inverted section divider"></div>
-        &copy; 2019 <a href="/">二十八度冬</a>,
+        &copy; 2021 <a href="/">二十八度冬</a>,
         Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a
                 href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
