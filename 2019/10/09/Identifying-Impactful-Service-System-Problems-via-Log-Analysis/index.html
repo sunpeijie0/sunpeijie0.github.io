@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="Paper Notes" />
+
+
+<meta name="description" content="
+ESEC/SIGSOFT FSE 2018
+通过将日志序列向量化，再建立其与 KPI 指标的回归模型，得到对系统具有影响力的序列，进而识别出相应的问题。
+
+日志序列向量化获得日志序列
+拿到日志..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Identifying Impactful Service System Problems via Log Analysis |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Identifying Impactful Service System Problems via Log Analysis">
+            
+            Identifying Impactful Service System Problems via Log Analysis
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Paper-Notes/" rel="tag">Paper Notes</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2019/10/09</span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                459</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>ESEC/SIGSOFT FSE 2018</p>
+<p>通过将日志序列向量化，再建立其与 KPI 指标的回归模型，得到对系统具有影响力的序列，进而识别出相应的问题。</p>
+</blockquote>
+<h2 id="日志序列向量化"><a href="#日志序列向量化" class="headerlink" title="日志序列向量化"></a>日志序列向量化</h2><h3 id="获得日志序列"><a href="#获得日志序列" class="headerlink" title="获得日志序列"></a>获得日志序列</h3><blockquote>
+<p>拿到日志消息后，用正则表达式替换参数域。基于加权编辑距离，对每个日志消息分组，提取组内日志消息的最长公共子序列作为日志事件。</p>
+<p>在每个时间间隔内，将具有同一个任务 ID 的日志消息连在一起，并将它们转化为一个日志事件集合，这个日志事件集合就是日志序列。同一个时间间隔内，有多个日志序列。</p>
+</blockquote>
+<h3 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h3><blockquote>
+<p>日志序列是由一串日志事件组成，因此，为了计算日志序列的权重，需要先计算每个日志事件的权重。</p>
+</blockquote>
+<h4 id="IDF-权重"><a href="#IDF-权重" class="headerlink" title="IDF 权重"></a>IDF 权重</h4><blockquote>
+<p>基于这样的事实：日志中高频事件一般并不是问题事件，偶尔出现的才可能是问题事件。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+w_{idf}(e) = log(\frac{N}{n_e})</script><blockquote>
+<p>$w_{idf}(e)$ 表示事件 $e$ 的 IDF 权重，$N$ 表示所有事件的个数，$n_e$ 表示事件 $e$ 出现的次数 。</p>
+</blockquote>
+<h4 id="Importance-权重"><a href="#Importance-权重" class="headerlink" title="Importance 权重"></a>Importance 权重</h4><blockquote>
+<p>基于这样的事实：与 KPI 下降联系紧密的事件应该拥有较高的权重。在每个时间间隔，根据多个序列，计算每个事件出现的次数总和，将其与 KPI 指标建立多元回归模型，得到事件 $e$ 的 Importance 权重 $w_{cor}(e)$。</p>
+</blockquote>
+<h4 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h4><script type="math/tex; mode=display">
+w(e) = \alpha * Norm(w_{idf}(e)) + (1-\alpha) * w_{cor}(e)</script><blockquote>
+<p>该权重作为事件 $e$ 的权重，有了事件权重，就可以得到序列向量。</p>
+</blockquote>
+<hr>
+<h2 id="级联聚类"><a href="#级联聚类" class="headerlink" title="级联聚类"></a>级联聚类</h2><blockquote>
+<p>目的是快速准确将不同的序列向量分类，该过程是一个迭代过程，直到所有的日志序列都被分类，该过程才停止。</p>
+</blockquote>
+<h3 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h3><blockquote>
+<p>采样是为了快速地聚类，先对一部分日志序列聚类，然后对未采样的序列进行匹配，实在匹配不到了再对剩余的日志序列进行迭代级联聚类的过程。</p>
+</blockquote>
+<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><blockquote>
+<p>刚开始，每个序列是一类。然后求每个簇到其它所有簇的距离，如果距离小于阈值  $\theta$ ，就把它们归为一类。最后，所有簇与其它簇的距离都小于阈值 $\theta$ 。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+D(A,B) = max\{d(a,b), \forall a\in A, \forall b \in B\}</script><blockquote>
+<p>两个序列间距离计算方法为 $d(u,v) = \sqrt{||u-v|} = \sqrt{\sum_{i=1}^{n}{(u_i-v_i)^2}}$，其中 $u_i$ 和 $v_i$ 为日志事件的权重。</p>
+</blockquote>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><blockquote>
+<p>取簇里所有序列向量的平均值，作为该簇的特征。</p>
+</blockquote>
+<h3 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h3><blockquote>
+<p>将剩下未采样的每个序列进行匹配，求该序列到所有簇的距离。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\mu = min\{d(x,P_j), \forall j \in \{1,2,...,k\}\}</script><blockquote>
+<p>其中 $P_j$ 为第 $j$ 个簇的特征。如果 $\mu$ 小于阈值 $\theta$ ，则匹配成功。</p>
+</blockquote>
+<hr>
+<h2 id="相关性分析"><a href="#相关性分析" class="headerlink" title="相关性分析"></a>相关性分析</h2><blockquote>
+<p>级联聚类只是对日志序列聚类，并没有分析与 KPI 相关的问题。基于这样的事实：与 KPI 相关的事件出现的越频繁，KPI 下降越多，可以理解为，与 KPI 相关的簇越大， KPI 下降越多。因此建立日志序列与 KPI 的多元线性回归模型。</p>
+</blockquote>
+<script type="math/tex; mode=display">\begin {pmatrix}
+     c_{11} & c_{12} & c_{13} & \cdots & c_{1n} \\
+     c_{21} & c_{22} & c_{23} & \cdots & c_{2n} \\
+     \vdots  & \vdots& \vdots & \ddots & \vdots \\
+     c_{d1} & c_{d2} & c_{d3} & \cdots & c_{dn}    
+\end {pmatrix}  \begin {pmatrix}
+     \beta_{11}\\
+     \beta_{21}\\
+     \vdots\\
+     \beta_{d1}    
+\end {pmatrix}  + \begin {pmatrix}
+     \epsilon_{11}\\
+     \epsilon_{21}\\
+     \vdots\\
+     \epsilon_{d1}    
+\end {pmatrix} = \begin {pmatrix}
+     KPI_{11}\\
+     KPI_{21}\\
+     \vdots\\
+     KPI_{d1}    
+\end {pmatrix}</script><blockquote>
+<p>为了找到哪些簇与 KPI 高度相关，使用 $t-statistic$ 方法。对 KPI 影响大的簇的系数不应该为0，因此，我们对每个自变量作一个空假设，假设它的系数是0。然后，一个双侧 t-test 检测每个系数的显著差异，p 代表空假设高概率被拒绝。如果 p-value 小于等于某个阈值，代表对应的簇对 KPI 是 impactful problem。</p>
+</blockquote>
+<p>​        </p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/10/10/A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats/" class="pre-post btn btn-default" title='A Search-based Approach for Accurate Identification of Log Message Formats'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            A Search-based Approach for Accurate Identification of Log Message Formats</span>
+    </a>
+    
+    
+    <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/" class="next-post btn btn-default" title='Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志序列向量化"><span class="toc-text">日志序列向量化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获得日志序列"><span class="toc-text">获得日志序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量化"><span class="toc-text">向量化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IDF-权重"><span class="toc-text">IDF 权重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Importance-权重"><span class="toc-text">Importance 权重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#权重"><span class="toc-text">权重</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#级联聚类"><span class="toc-text">级联聚类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#采样"><span class="toc-text">采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚类"><span class="toc-text">聚类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征提取"><span class="toc-text">特征提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匹配"><span class="toc-text">匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关性分析"><span class="toc-text">相关性分析</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
