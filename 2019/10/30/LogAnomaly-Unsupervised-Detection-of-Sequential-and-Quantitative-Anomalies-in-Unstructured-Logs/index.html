@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="二十八度冬">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://sunpeijie0.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="Paper Notes" />
+
+
+<meta name="description" content="
+IJCAI A类 2019
+LogAanomaly 能够同时检测顺序和定量日志异常，之前的工作针对的都是其中的一种。
+
+从两个维度来对现有的日志异常检测的方法分类：
+
+检测顺序异常或定量异常
+..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs |
+    
+    二十八度冬
+</title>
+
+<link rel="alternate" href="/atom.xml" title="二十八度冬" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    http://snippet.shenliyang.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title=''>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://sunpeijie0.github.io">
+                        二十八度冬</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs">
+            
+            LogAnomaly Unsupervised Detection of Sequential and Quantitative Anomalies in     Unstructured Logs
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Paper-Notes/" rel="tag">Paper Notes</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2019/10/30</span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                438</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>IJCAI A类 2019</p>
+<p>LogAanomaly 能够同时检测顺序和定量日志异常，之前的工作针对的都是其中的一种。</p>
+</blockquote>
+<p>从两个维度来对现有的日志异常检测的方法分类：</p>
+<ul>
+<li>检测顺序异常或定量异常</li>
+<li>监督或非监督</li>
+</ul>
+<p>LogAnomaly 使用非监督的方法，自动准确及时地同时检测顺序日志和定量日志异常。核心思想是利用深度学习的方法，学习日志顺序和定量的特征，它们都用模板的语义表示。在预测阶段，实时的日志违反了学习到的特征将被认为是异常的。</p>
+<h3 id="Template2Vec"><a href="#Template2Vec" class="headerlink" title="Template2Vec"></a>Template2Vec</h3><p>首先，参考 WordNet 搜索模板里面的同义词和反义词，列出来。然后操作员可以将 WordNet 里没有的，但模板里存在的近义词和反义词列出来。然后使用 dLCE 生成单词向量。最后给定一个模板，该模板里的单词加权平均值作为模板向量。</p>
+<p>在检测阶段，对于新的日志类型，匹配一个已经在的模板向量。</p>
+<h3 id="Log-Anomaly-Detection"><a href="#Log-Anomaly-Detection" class="headerlink" title="Log Anomaly Detection"></a>Log Anomaly Detection</h3><p>程序生成日志使用的是 print 函数，经常按照特定的流程执行，因此，正常的日志有一个序列模式。给定一个模板序列，如果没有异常发生，它的下一个模板是可预测的。$\Omega = {v<em>1,v_2,…,v_n}$ 是一组完全不同的模板向量。序列的预测是 $\omega$ 个最近模板向量的滑动窗口。对于日志序列 $S = (s_1,s_2,…s_m)$ ，假设 $S_j = (S_j,S</em>{j+1},…,S_{j+\omega -1})$  是它的一个子序列。使用 LSTM 预测下一个序列。本论文中， $\omega = 3$。</p>
+<p>  <img src="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/sequence_example.jpg" alt="template"><img src="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/sequence_pattern.jpg" alt="template"></p>
+<p>除了顺序特征外，模板序列还有定量特征。例如，“打开一个文件”的数量应该和“关闭一个文件”数量一样，这些日志中定量的关系捕捉了正常程序执行行为。如果新的日志打破了特定的常量，我们认为有异常发生。对于一个日志消息 $s<em>i\in S_j$，我们对日志序列 $(s</em>{i-\omega +1},s<em>{i-\omega +2},…,s_i)$ 计算计数向量，用 $C_i = (c_i(v_1),c_i(v2),…ci(v_n))$ 表示，$c_i(v_k)$ 代表$v_k$ 在日志序列 $(v</em>{(s<em>{i-\omega +1})},v</em>{(s<em>{i-\omega +2})},…v</em>{(s_{i-\omega +i})})$ ，其中$v_k \in V$。</p>
+<p><img src="/2019/10/30/LogAnomaly-Unsupervised-Detection-of-Sequential-and-Quantitative-Anomalies-in-Unstructured-Logs/quantitative_pattern.jpg" alt="template"></p>
+<p>由于程序在打开一个文件后，可能进行读，写等操作，最后才有一个关闭文件对于一个日志序列，按照概率对前 k 个有可能出现的日志进行排序，如果下一个日志序列在这 k 个中间，我们认为该日志是正常的。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/11/02/Device-Agnostic%20Log%20Anomaly%20Classification%20with%20Partial%20Labels/" class="pre-post btn btn-default" title='Device-Agnostic Log Anomaly Classification with Partial Labels'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Device-Agnostic Log Anomaly Classification with Partial Labels</span>
+    </a>
+    
+    
+    <a href="/2019/10/29/Robust-Log-Based-Anomaly-Detection-on-Unstable-Log-Data/" class="next-post btn btn-default" title='Robust Log-Based Anomaly Detection on Unstable Log Data'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Robust Log-Based Anomaly Detection on Unstable Log Data</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'en'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Template2Vec"><span class="toc-text">Template2Vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Log-Anomaly-Detection"><span class="toc-text">Log Anomaly Detection</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
