@@ -104,21 +104,6 @@
                         </li>
                         
                         <li role="presentation" class="text-center">
-                            <a href="/categories/前端/"><i class="fa "></i>
-                                前端</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/后端/"><i class="fa "></i>
-                                后端</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/工具/"><i class="fa "></i>
-                                工具</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
                             <a href="/archives/"><i class="fa "></i>
                                 时间轴</a>
                         </li>
@@ -148,18 +133,22 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
-                <a href="/2020/12/26/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/">
-                    快慢指针</a>
+                <a href="/2020/10/09/01%E8%83%8C%E5%8C%85/">
+                    01背包</a>
             </h1>
             <div class="post-meta"> &bull;
                 <time class="post-date" datetime="" title="">
-                    2020年12月26日
+                    2020年10月09日
                 </time>
             </div>
         </div>
         <p class="brief">
             
-            快慢指针
+            01背包状态表示$f[i][j]$ 表示只看前 $i$ 件物品，总体积是 $j$ 的 情况下，总价值最大是多少
+$result=max(f[n][0\sim V])$
+$f[i][j]:$
+
+不选第 $i$ 个物品，$f[i][j]=...
             
         </p>
     </div>
@@ -178,7 +167,7 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-            <a class="tag-link" href="/tags/Leetcode/" rel="tag">Leetcode</a>
+            <a class="tag-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">算法与数据结构</a>
             
         </span>
     </span>
@@ -187,7 +176,7 @@
 </div>
         </div>
         <div class="post-permalink">
-            <a href="/2020/12/26/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" class="btn btn-default">
+            <a href="/2020/10/09/01%E8%83%8C%E5%8C%85/" class="btn btn-default">
                 Read</a>
         </div>
     </footer>
@@ -258,7 +247,7 @@
     
     <div class="post-media">
         <a href="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/">
-            <img class="img-ajax" src="/img/loading.gif" data-src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_down_node.jpg" alt="NFS+Pacemaker实现Mariadb高可用">
+            <img class="img-ajax" src="/img/loading.gif" data-src="/2019/11/07/NFS-Pacemaker%E5%AE%9E%E7%8E%B0Mariadb%E9%AB%98%E5%8F%AF%E7%94%A8/cluster_stop_db_recover.jpg" alt="NFS+Pacemaker实现Mariadb高可用">
         </a>
     </div>
     
@@ -558,7 +547,7 @@ MariaDB + Galera在/etc/apt/sources.list.d目录下创建mariadb.list文件，�
     
     <div class="post-media">
         <a href="/2019/10/10/A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats/">
-            <img class="img-ajax" src="/img/loading.gif" data-src="/2019/10/10/A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats/InitialPopulation.png" alt="A Search-based Approach for Accurate Identification of Log Message Formats">
+            <img class="img-ajax" src="/img/loading.gif" data-src="/2019/10/10/A-Search-based-Approach-for-Accurate-Identification-of-Log-Message-Formats/template.png" alt="A Search-based Approach for Accurate Identification of Log Message Formats">
         </a>
     </div>
     
@@ -671,6 +660,71 @@ ESEC/SIGSOFT FSE 2018
 </article>
 
 
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/">
+                    Ubuntu下Snort NFQ Inline Mode 结合iptables实现IPS</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2018年03月11日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            Snort
+Snort  是入侵检测系统，根据自定义规则，及时发现入侵。
+iptables
+具有拦截的功能
+Inline Mode
+在 Inline Mode 下，Snort的drop规则才会丢弃数据包
+NFQ
+NFQ 是 Snort...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Snort/" rel="tag">Snort</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2018/03/11/Ubuntu%E4%B8%8BSnort-NFQ-Inline-Mode-%E7%BB%93%E5%90%88iptables%E5%AE%9E%E7%8E%B0IPS/" class="btn btn-default">
+                Read</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+
+<nav class="pagination" role="navigation">
+    <div id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class=&#39;fa fa-angle-right&#39;&gt;&lt;&#x2F;i&gt;</a>
+    </div>
+</nav>
 
                 </main>
                 
@@ -766,7 +820,7 @@ ESEC/SIGSOFT FSE 2018
     <h3 class="title">
         Archives
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/"><i class="fa" aria-hidden="true">2020年12月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/"><i class="fa" aria-hidden="true">2020年09月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/"><i class="fa" aria-hidden="true">2020年08月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/"><i class="fa" aria-hidden="true">2019年12月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/"><i class="fa" aria-hidden="true">2019年11月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/"><i class="fa" aria-hidden="true">2019年10月</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/"><i class="fa" aria-hidden="true">2018年03月</i></a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/"><i class="fa" aria-hidden="true">2019年12月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/"><i class="fa" aria-hidden="true">2019年11月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/"><i class="fa" aria-hidden="true">2019年10月</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/"><i class="fa" aria-hidden="true">2018年03月</i></a><span class="archive-list-count">2</span></li></ul>
 </div>
 
     
@@ -777,7 +831,7 @@ ESEC/SIGSOFT FSE 2018
     </h3>
     <div class="content tag-cloud">
         
-        <a href="/tags/High-Avilibility/" style="font-size: 10px;">High Avilibility</a> <a href="/tags/Leetcode/" style="font-size: 10px;">Leetcode</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Paper-Notes/" style="font-size: 15px;">Paper Notes</a> <a href="/tags/hide/" style="font-size: 20px;">hide</a>
+        <a href="/tags/High-Avilibility/" style="font-size: 10px;">High Avilibility</a> <a href="/tags/OpenStack/" style="font-size: 10px;">OpenStack</a> <a href="/tags/Paper-Notes/" style="font-size: 20px;">Paper Notes</a> <a href="/tags/Snort/" style="font-size: 15px;">Snort</a> <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">算法与数据结构</a>
         
     </div>
 </div>
