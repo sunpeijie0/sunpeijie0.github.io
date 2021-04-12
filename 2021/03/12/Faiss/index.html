@@ -174,7 +174,7 @@ L = k-argmin_{i=0:l}||x-y_i||_2</script><p><strong><em>k-nn</em> 可以理解为
 </li>
 </ul>
 <p><img src="/2021/03/12/Faiss/warp shuffle.jpg" alt="PQ"></p>
-<p>一个 <em>warp</em> 内的 <em>lanes</em> 通过 <strong><em>warp shuffles</em></strong> 交换寄存器数据。给定一个数组 $[a<em>i]</em>{i=0:l}$，$l$ 是32的倍数。连续的值存储在邻居 <em>lanes</em> 中，对于每个 <em>lane</em>，数组存储在 $l/32+1$ 个寄存器中（为什么是32，因为一个warp有32个 <em>lanes</em>）。<em>lane j</em> 存储 ${a<em>j, a</em>{32+j},…,a<em>{l-32+j}}$，<em>register r</em> 有 ${a</em>{32r}, a<em>{32r+1},…,a</em>{32r+31}}$。<em>lane ID</em> = $i$ <em>mod</em> <em>32</em>，<em>register ID</em> = <em>i/32</em>。</p>
+<p>一个 <em>warp</em> 内的 <em>lanes</em> 通过 <strong><em>warp shuffles</em></strong> 交换寄存器数据。给定一个数组 $[a<em>i]</em>{i=0:l}$，$l$ 是32的倍数。连续的值存储在邻居 <em>lanes</em> 中，对于每个 <em>lane</em>，数组存储在 $l/32+1$ 个寄存器中（为什么是32，因为一个warp有32个 <em>lanes</em>）。<em>lane j</em> 存储 ${a<em>j,a</em>{32+j},…,a<em>{l-32+j}}$，<em>register r</em> 有 ${a</em>{32r}, a<em>{32r+1},…,a</em>{32r+31}}$。<em>lane ID</em> = $i$ <em>mod</em> <em>32</em>，<em>register ID</em> = <em>i/32</em>。</p>
 <h3 id="1-距离计算"><a href="#1-距离计算" class="headerlink" title="1 距离计算"></a>1 距离计算</h3><h4 id="1-1-k-means"><a href="#1-1-k-means" class="headerlink" title="1.1 k-means"></a>1.1 k-means</h4><p><em>k-means</em> 算法是 PQ 和 IVF-PQ 算法的基础，大致流程如下步骤：</p>
 <p>(1) 确定聚类后类别数目 $k$，从数据集中随机选取 $k$ 个样本作为质心；</p>
 <p>(2) 计算每个样本到 $k$ 个质心的距离，离哪个质心越近就与哪个质心归为一类；</p>
