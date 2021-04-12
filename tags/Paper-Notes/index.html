@@ -128,6 +128,29 @@
     <div class="post-content">
         <div class="post-head home-post-head">
             <h1 class="post-title">
+                <a href="/2021/03/12/Faiss/">
+                    Faiss</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2021年03月12日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            Billion-scale similarity search with GPUs过去的研究中仅仅有一个方法（Wieschollek）在十亿规模的数据集上使用量化编码，是过去最先进的方法。
+相似搜索的一个应用场景：k-nn​，给一个查...
+            
+        </p>
+    </div>
+</article>
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
                 <a href="/2019/12/04/ACL-automitical-configuration/">
                     ACL automitical configuration</a>
             </h1>
@@ -345,7 +368,7 @@ ESEC/SIGSOFT FSE 2018
     <h3 class="title">
         Archives
     </h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/"><i class="fa" aria-hidden="true">2019年12月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/"><i class="fa" aria-hidden="true">2019年11月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/"><i class="fa" aria-hidden="true">2019年10月</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/"><i class="fa" aria-hidden="true">2018年03月</i></a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/"><i class="fa" aria-hidden="true">2021年03月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/"><i class="fa" aria-hidden="true">2021年01月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/"><i class="fa" aria-hidden="true">2020年10月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/"><i class="fa" aria-hidden="true">2019年12月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/"><i class="fa" aria-hidden="true">2019年11月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/"><i class="fa" aria-hidden="true">2019年10月</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/"><i class="fa" aria-hidden="true">2018年03月</i></a><span class="archive-list-count">2</span></li></ul>
 </div>
 
     
@@ -432,5 +455,21 @@ ESEC/SIGSOFT FSE 2018
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <script src="/js/app.js?rev=@@hash"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
