@@ -161,7 +161,7 @@
     
     <div class="post-body post-content">
         <h2 id="Billion-scale-similarity-search-with-GPUs"><a href="#Billion-scale-similarity-search-with-GPUs" class="headerlink" title="Billion-scale similarity search with GPUs"></a>Billion-scale similarity search with GPUs</h2><p>过去的研究中仅仅有一个方法（Wieschollek）在十亿规模的数据集上使用量化编码，是过去最先进的方法。</p>
-<p>相似搜索的一个应用场景：<em>k-nn​</em>，给一个查询向量 $x \in R^d$ 和一个向量集合 $ [y<em>i]</em>{i=0:l} $，搜索 $ x $ 的 $ k $ 个邻近。</p>
+<p>相似搜索的一个应用场景：<em>k-nn​</em>，给一个查询向量 $x \in R^d$ 和一个向量集合 $ [y<em>i]</em>{i=0:l} $ ，搜索 $ x $ 的 $ k $ 个邻近。</p>
 <script type="math/tex; mode=display">
 L = k-argmin_{i=0:l}||x-y_i||_2</script><p><strong><em>k-nn</em> 可以理解为距离计算 ($ x $与所有数据库向量[$ y_i $]的距离) + 距离排序 (<em>k-selection</em>)。</strong>其中，距离计算在第一部分介绍，第二部分介绍排序算法。</p>
 <h3 id="GPU-架构相关知识"><a href="#GPU-架构相关知识" class="headerlink" title="GPU 架构相关知识"></a>GPU 架构相关知识</h3><p><img src="/2021/03/12/Faiss/GPU架构.jpg" alt="PQ"></p>
@@ -174,14 +174,14 @@ L = k-argmin_{i=0:l}||x-y_i||_2</script><p><strong><em>k-nn</em> 可以理解为
 </li>
 </ul>
 <p><img src="/2021/03/12/Faiss/warp shuffle.jpg" alt="PQ"></p>
-<p>一个 <em>warp</em> 内的 <em>lanes</em> 通过 <strong><em>warp shuffles</em></strong> 交换寄存器数据。给定一个数组 $ [a<em>i]</em>{i=0:l} $，$l$ 是32的倍数。连续的值存储在邻居 <em>lanes</em> 中，对于每个 <em>lane</em>，数组存储在 $ l/32+1 $ 个寄存器中（为什么是32，因为一个warp有32个 <em>lanes</em>）。<em>lane j</em> 存储 $ {a<em>j,a</em>{32+j},…,a<em>{l-32+j}} $，<em>register r</em> 有 $ {a</em>{32r}, a<em>{32r+1},…,a</em>{32r+31}} $。<em>lane ID</em> = $i$ <em>mod</em> <em>32</em>，<em>register ID</em> = <em>i/32</em>。</p>
+<p>一个 <em>warp</em> 内的 <em>lanes</em> 通过 <strong><em>warp shuffles</em></strong> 交换寄存器数据。给定一个数组 $ [a<em>i]</em>{i=0:l} $ ，$l$ 是32的倍数。连续的值存储在邻居 <em>lanes</em> 中，对于每个 <em>lane</em>，数组存储在 $ l/32+1 $ 个寄存器中（为什么是32，因为一个warp有32个 <em>lanes</em>）。<em>lane j</em> 存储 $ {a<em>j,a</em>{32+j},…,a<em>{l-32+j}} $ ，<em>register r</em> 有 $ {a</em>{32r}, a<em>{32r+1},…,a</em>{32r+31}} $ 。<em>lane ID</em> = $i$ <em>mod</em> <em>32</em>，<em>register ID</em> = <em>i/32</em>。</p>
 <h3 id="1-距离计算"><a href="#1-距离计算" class="headerlink" title="1 距离计算"></a>1 距离计算</h3><h4 id="1-1-k-means"><a href="#1-1-k-means" class="headerlink" title="1.1 k-means"></a>1.1 k-means</h4><p><em>k-means</em> 算法是 PQ 和 IVF-PQ 算法的基础，大致流程如下步骤：</p>
 <p>(1) 确定聚类后类别数目 $ k $，从数据集中随机选取 $ k $ 个样本作为质心；</p>
 <p>(2) 计算每个样本到 $ k $ 个质心的距离，离哪个质心越近就与哪个质心归为一类；</p>
 <p>(3) 计算各个簇内所有样本的均值，并使用均值作为新的质心；</p>
 <p>(4) 如果新的质心与老质心变化不大，算法结束。否则重复2~3。</p>
 <p><em>k-means</em> 最后输出的是 $ k $ 个簇，每个簇中有一定数量的样本。</p>
-<h4 id="1-2-暴力搜索"><a href="#1-2-暴力搜索" class="headerlink" title="1.2 暴力搜索"></a>1.2 暴力搜索</h4><p>并行搜索以 $ n<em>q $ 个查询向量 $ [x_j]</em>{j=0:n_q} $ 为一个batch。批量 <em>k-selection</em> 最终会选择 $ n_q \times k $ 个元素，这些元素来自 $ n_q $ 个数组，每个数组的长度可能不同，$ l_i \geq k $。暴力搜索瓶颈在于 $ <x_j,y_i> $ 的计算，论文中使用 cuBLAS 库中优化的 <em>GEMM routines</em> 计算。</x_j,y_i></p>
+<h4 id="1-2-暴力搜索"><a href="#1-2-暴力搜索" class="headerlink" title="1.2 暴力搜索"></a>1.2 暴力搜索</h4><p>并行搜索以 $ n<em>q $ 个查询向量 $ [x_j]</em>{j=0:n_q} $ 为一个batch。批量 <em>k-selection</em> 最终会选择 $ n_q \times k $ 个元素，这些元素来自 $ n_q $ 个数组，每个数组的长度可能不同，$ l_i \geq k $ 。暴力搜索瓶颈在于 $ <x_j,y_i> $ 的计算，论文中使用 cuBLAS 库中优化的 <em>GEMM routines</em> 计算。</x_j,y_i></p>
 <script type="math/tex; mode=display">
 D=[||x_j-y_i||_2^2]_{j=0:n_q,i=0:l \in R^{n_q \times l}}</script><script type="math/tex; mode=display">
 ||x_j-y_i||_2^2=||x_j||^2+||y_i||^2-2<x_j,y_i></script><h4 id="1-3-乘积量化-Production-Quantization-PQ"><a href="#1-3-乘积量化-Production-Quantization-PQ" class="headerlink" title="1.3 乘积量化 (Production Quantization, PQ)"></a>1.3 乘积量化 (Production Quantization, PQ)</h4><p>乘积量化将向量分成几个子空间，并对其分别编码，乘积量化分为训练和预测两个阶段。</p>
